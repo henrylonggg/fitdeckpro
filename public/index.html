@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050914">
+<title><span class="fitdeck-brand">FIT<span>DECK</span></span> Pro</title>
+<style>
+:root{
+  --bg:#040812;
+  --panel:#0a1120;
+  --panel2:#0d1729;
+  --line:rgba(255,255,255,.09);
+  --text:#f7fbff;
+  --muted:#8da0b8;
+  --cyan:#47f1ff;
+  --blue:#4a7cff;
+  --violet:#a375ff;
+  --green:#4df0a9;
+  --red:#ff6780;
+  --orange:#ffb454;
+  --shadow:0 28px 80px rgba(0,0,0,.52);
+  --radius:28px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 12% -5%,rgba(71,241,255,.14),transparent 30rem),
+    radial-gradient(circle at 90% 5%,rgba(163,117,255,.14),transparent 26rem),
+    linear-gradient(180deg,#07101e 0%,#03060d 100%);
+  overflow-x:hidden;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{width:min(100%,1120px);margin:auto;padding:14px 12px 110px}
+.topbar{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0 14px;background:linear-gradient(180deg,rgba(4,8,18,.96),rgba(4,8,18,.78),transparent);
+  backdrop-filter:blur(20px)
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+  width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:950;color:#06101d;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  box-shadow:0 0 32px rgba(71,241,255,.2)
+}
+.brand h1{font-size:17px;margin:0}.brand p{font-size:10px;color:var(--muted);margin:2px 0 0}
+.datebox{padding:8px 10px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04)}
+.datebox input{border:0;outline:0;background:transparent;color:var(--text);max-width:128px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:4px}
+.panel{
+  position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(145deg,rgba(14,25,44,.96),rgba(6,14,26,.98));
+  box-shadow:var(--shadow)
+}
+.hero-copy{padding:23px}
+.eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--cyan);font-weight:900}
+.hero-copy h2{font-size:clamp(30px,6vw,56px);line-height:.98;letter-spacing:-.045em;margin:12px 0 10px}
+.hero-copy p{color:var(--muted);font-size:13px;line-height:1.55;margin:0;max-width:620px}
+.day-pill{display:inline-flex;gap:8px;align-items:center;margin-top:17px;padding:10px 13px;border-radius:999px;background:rgba(71,241,255,.07);border:1px solid rgba(71,241,255,.19);font-size:12px;font-weight:800}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+.score-card{padding:18px;display:grid;place-items:center}
+.score-orbit{
+  --score:50;
+  position:relative;width:210px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  background:
+    radial-gradient(circle at center,#091524 0 47%,transparent 48%),
+    conic-gradient(from -90deg,var(--cyan) 0 calc(var(--score)*.5%),var(--violet) calc(var(--score)*.5%) calc(var(--score)*1%),rgba(255,255,255,.06) 0);
+  box-shadow:0 0 55px rgba(71,241,255,.15),inset 0 0 40px rgba(163,117,255,.08)
+}
+.score-orbit:before,.score-orbit:after{
+  content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08)
+}
+.score-orbit:before{inset:11px}.score-orbit:after{inset:27px}
+.score-center{position:relative;text-align:center;z-index:2}
+.score-center strong{display:block;font-size:56px;line-height:.95;letter-spacing:-.06em}
+.score-center span{font-size:10px;color:var(--muted)}
+.score-center em{display:block;font-style:normal;color:var(--cyan);font-size:11px;font-weight:850;margin-top:8px}
+.metric-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;width:100%;margin-top:13px}
+.metric{padding:10px 7px;text-align:center;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+.metric b{display:block;font-size:14px}.metric span{font-size:9px;color:var(--muted)}
+.section{margin-top:13px}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:0 3px 9px}
+.section-title h3{margin:0;font-size:17px}.section-title p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pad{padding:17px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.btn{
+  border:0;border-radius:14px;padding:11px 14px;font-size:12px;font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),#8df5d6);color:#06101d;
+  box-shadow:0 12px 30px rgba(71,241,255,.13)
+}
+.btn.secondary{background:rgba(255,255,255,.055);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.btn.danger{background:rgba(255,103,128,.11);color:#fff;border:1px solid rgba(255,103,128,.2);box-shadow:none}
+.deck-status{font-size:11px;color:var(--muted)}
+.deck-stage{
+  position:relative;min-height:485px;display:grid;place-items:center;overflow:visible;
+  perspective:1200px;padding:15px 0
+}
+.deck-shadow,.deck-shadow2{
+  position:absolute;width:min(92%,360px);height:440px;border-radius:28px;border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(145deg,#111b2f,#07101c);box-shadow:0 22px 50px rgba(0,0,0,.28)
+}
+.deck-shadow{transform:translateY(13px) rotate(-2deg);opacity:.58}
+.deck-shadow2{transform:translateY(7px) rotate(2deg);opacity:.74}
+.playing-card{
+  touch-action:none;user-select:none;
+  position:relative;width:min(92%,360px);height:440px;border-radius:28px;padding:18px;
+  background:
+    radial-gradient(circle at 50% 46%,rgba(71,241,255,.18),transparent 40%),
+    linear-gradient(145deg,#fbfdff,#dce7f2);
+  color:#07111f;box-shadow:0 28px 65px rgba(0,0,0,.38);z-index:5;
+  transform-style:preserve-3d;transition:transform .26s ease,opacity .26s ease;
+  overflow:hidden
+}
+.playing-card.red{
+  background:radial-gradient(circle at 50% 46%,rgba(255,103,128,.18),transparent 40%),linear-gradient(145deg,#fff,#efe4ea)
+}
+.playing-card.dragging{transition:none}
+.playing-card.swipe-left{transform:translateX(-140%) rotate(-18deg);opacity:0}
+.playing-card.swipe-right{transform:translateX(140%) rotate(18deg);opacity:0}
+.corner{position:absolute;font-size:28px;font-weight:950;line-height:.82;text-align:center}
+.corner small{display:block;font-size:17px;margin-top:3px}
+.corner.tl{top:17px;left:17px}.corner.br{right:17px;bottom:17px;transform:rotate(180deg)}
+.card-rank-label{text-align:center;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.exercise-name{text-align:center;font-size:22px;font-weight:950;margin-top:8px;padding:0 40px}
+.exercise-art{height:225px;display:grid;place-items:center;margin:4px auto}
+.exercise-art svg{width:205px;height:205px;filter:drop-shadow(0 14px 13px rgba(6,16,29,.14))}
+.rep-value{text-align:center}.rep-value strong{display:block;font-size:43px;line-height:.9}.rep-value span{font-size:11px;font-weight:850;opacity:.62}
+.swipe-hint{text-align:center;margin-top:11px;font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
+.legend{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:10px}
+.legend-item{padding:10px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.legend-item b{display:block;font-size:10px}.legend-item span{font-size:9px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{padding:13px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.stat span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.stat b{display:block;font-size:20px;margin-top:4px}
+.log-list{display:grid;gap:7px;margin-top:11px;max-height:335px;overflow:auto}
+.log-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 11px;border-radius:13px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.log-row b{display:block;font-size:11px}.log-row span{font-size:9px;color:var(--muted)}
+.log-row button{border:0;background:transparent;color:var(--red);font-size:18px}
+.water-panel{display:grid;grid-template-columns:145px 1fr;gap:16px;align-items:center}
+.water-glass{
+  position:relative;width:120px;height:190px;margin:auto;border:4px solid rgba(255,255,255,.78);
+  border-top-width:2px;border-radius:9px 9px 28px 28px;overflow:hidden;background:rgba(255,255,255,.02)
+}
+.water-fill{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,#46f1ff,#3870ff);transition:height .45s cubic-bezier(.2,.8,.2,1)}
+.water-fill:before{content:"";position:absolute;left:-10%;top:-7px;width:120%;height:14px;border-radius:50%;background:#70f4ff}
+.water-readout{text-align:center;font-size:38px;font-weight:950;letter-spacing:-.045em}.water-readout span{font-size:12px;color:var(--muted);letter-spacing:0}
+.water-sub{text-align:center;color:var(--muted);font-size:10px;margin-top:3px}
+.add-water{
+  width:100%;margin-top:12px;padding:15px 16px;border:0;border-radius:16px;font-weight:950;font-size:14px;
+  color:#06101d;background:linear-gradient(135deg,var(--cyan),#6fd2ff);box-shadow:0 15px 35px rgba(71,241,255,.16)
+}
+.water-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.water-mini button{padding:10px;border-radius:13px;background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--line);font-weight:850}
+.field label{display:block;font-size:9px;font-weight:850;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 5px 2px}
+.field input,.field select{width:100%;padding:12px;border-radius:13px;border:1px solid var(--line);background:#07111f;color:var(--text);outline:0}
+.activity-form{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.activity-form .wide{grid-column:1/-1}
+.chart-wrap{padding:17px}
+canvas{display:block;width:100%;height:270px}
+.bottom-nav{
+  position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:80;width:min(94%,520px);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:7px;border:1px solid var(--line);
+  border-radius:20px;background:rgba(7,14,26,.91);backdrop-filter:blur(20px);box-shadow:var(--shadow)
+}
+.bottom-nav a{text-decoration:none;color:var(--muted);text-align:center;padding:9px 4px;border-radius:13px;font-size:9px;font-weight:900}
+.bottom-nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.toast{position:fixed;left:50%;bottom:86px;transform:translate(-50%,18px);opacity:0;z-index:100;background:#f7fbff;color:#06101d;padding:11px 14px;border-radius:13px;font-size:11px;font-weight:900;transition:.22s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.empty{min-height:180px;display:grid;place-items:center;text-align:center;border:1px dashed var(--line);border-radius:18px;color:var(--muted);font-size:11px;padding:18px}
+@media(max-width:760px){
+  .hero,.grid2{grid-template-columns:1fr}
+  .score-card{min-height:260px}
+  .deck-stage{min-height:465px}
+  .playing-card,.deck-shadow,.deck-shadow2{height:420px}
+}
+@media(max-width:420px){
+  .app{padding-left:9px;padding-right:9px}
+  .brand p{display:none}.hero-copy,.pad,.chart-wrap{padding:14px}
+  .hero-copy h2{font-size:38px}
+  .score-orbit{width:184px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .water-panel{grid-template-columns:112px 1fr}
+  .water-glass{width:96px;height:155px}
+  .activity-form{grid-template-columns:1fr}.activity-form .wide{grid-column:auto}
+  .deck-stage{min-height:442px;padding-top:8px}
+  .playing-card,.deck-shadow,.deck-shadow2{width:96%;height:405px}
+  .exercise-art{height:205px}.exercise-art svg{width:188px;height:188px}
+}
+
+.metric-pills-four{grid-template-columns:repeat(4,1fr)}
+.bonus-metric{
+  background:linear-gradient(145deg,rgba(163,117,255,.14),rgba(71,241,255,.07));
+  border-color:rgba(163,117,255,.25)
+}
+.bonus-metric b{color:#c7adff}
+.panel:before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.025),transparent 38%);
+}
+.playing-card:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 0 42%,rgba(255,255,255,.22) 50%,transparent 58%);
+  transform:translateX(-130%);transition:transform .7s ease
+}
+.playing-card:hover:after{transform:translateX(130%)}
+.add-water{position:relative;overflow:hidden}
+.add-water:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 0 40%,rgba(255,255,255,.35) 50%,transparent 60%);
+  transform:translateX(-120%);transition:transform .6s ease
+}
+.add-water:hover:after{transform:translateX(120%)}
+@media(max-width:420px){
+  .metric-pills-four{grid-template-columns:repeat(2,1fr)}
+}
+
+
+.welcome-block{display:flex;flex-direction:column;gap:2px}
+.welcome-line{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.welcome-name{font-size:17px;font-weight:950;letter-spacing:-.02em}
+.profile-btn{
+  width:38px;height:38px;border-radius:13px;border:1px solid var(--line);
+  background:rgba(255,255,255,.05);color:var(--text);font-weight:950
+}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.onboarding{
+  position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:18px;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(71,241,255,.18),transparent 26rem),
+    radial-gradient(circle at 80% 15%,rgba(163,117,255,.18),transparent 24rem),
+    rgba(3,7,15,.94);
+  backdrop-filter:blur(22px)
+}
+.onboarding.hidden{display:none}
+.onboarding-card{
+  width:min(100%,460px);padding:28px;border-radius:30px;border:1px solid rgba(255,255,255,.11);
+  background:linear-gradient(145deg,rgba(15,27,47,.98),rgba(6,14,26,.98));
+  box-shadow:0 35px 100px rgba(0,0,0,.6);position:relative;overflow:hidden
+}
+.onboarding-card:before{
+  content:"";position:absolute;inset:-1px;pointer-events:none;
+  background:linear-gradient(135deg,rgba(71,241,255,.08),transparent 35%,rgba(163,117,255,.08))
+}
+.onboarding-logo{
+  width:62px;height:62px;border-radius:20px;display:grid;place-items:center;font-size:24px;font-weight:950;
+  color:#06101d;background:linear-gradient(135deg,var(--cyan),var(--violet));
+  box-shadow:0 0 45px rgba(71,241,255,.2);margin-bottom:18px
+}
+.onboarding h2{font-size:34px;line-height:1;margin:0 0 10px;letter-spacing:-.045em}
+.onboarding p{color:var(--muted);font-size:13px;line-height:1.55;margin:0 0 20px}
+.name-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.start-btn{width:100%;margin-top:12px;padding:14px 16px;border:0;border-radius:16px;font-weight:950;color:#06101d;background:linear-gradient(135deg,var(--cyan),#8df5d6)}
+.profile-sheet{
+  position:fixed;inset:0;z-index:180;display:none;place-items:end center;background:rgba(0,0,0,.5);backdrop-filter:blur(8px)
+}
+.profile-sheet.show{display:grid}
+.profile-card{
+  width:min(100%,520px);padding:20px;border-radius:26px 26px 0 0;border:1px solid var(--line);
+  background:linear-gradient(145deg,#0d182a,#07101d);box-shadow:var(--shadow)
+}
+.profile-card h3{margin:0 0 5px}.profile-card p{margin:0 0 14px;color:var(--muted);font-size:11px}
+.profile-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.save-note{
+  margin-top:12px;padding:11px 12px;border-radius:14px;background:rgba(71,241,255,.06);
+  border:1px solid rgba(71,241,255,.14);color:var(--muted);font-size:10px;line-height:1.5
+}
+@media(max-width:420px){
+  .welcome-name{font-size:14px}.welcome-line{font-size:8px}
+  .name-grid{grid-template-columns:1fr}
+  .onboarding-card{padding:22px}
+  .onboarding h2{font-size:30px}
+}
+
+
+.title-brand{align-items:flex-start}
+.app-title{font-size:25px;line-height:.9;font-weight:1000;letter-spacing:-.075em;background:linear-gradient(90deg,#fff,#8ef7ff 38%,#ae8cff 74%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(71,241,255,.18))}
+.app-title span{font-weight:600}.title-brand .welcome-name{margin-top:6px;font-size:11px;color:var(--muted)}
+.manual-water{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:8px}
+.manual-water input{min-width:0;padding:10px;border-radius:12px;border:1px solid var(--line);background:#07111f;color:var(--text)}
+.manual-water button{padding:10px 13px;border-radius:12px;border:1px solid rgba(71,241,255,.2);background:rgba(71,241,255,.09);color:var(--cyan);font-weight:900}
+.health-panel{padding:20px}.health-top{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+.health-kicker{font-size:9px;letter-spacing:.16em;color:#ff7891;font-weight:950}
+.health-top h3{font-size:26px;line-height:1.03;letter-spacing:-.04em;margin:8px 0}.health-top p{font-size:11px;color:var(--muted);line-height:1.55;margin:0;max-width:650px}
+.health-connect{min-width:185px;padding:15px;border-radius:18px;border:1px solid rgba(255,103,128,.23);background:linear-gradient(145deg,rgba(255,103,128,.17),rgba(163,117,255,.1));color:#fff}
+.health-connect span{font-size:24px;color:#ff6680;display:block}.health-connect b{font-size:11px}
+.health-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:17px}
+.health-tile{padding:13px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.health-tile span{font-size:8px;color:var(--muted)}.health-tile b{display:block;font-size:21px;margin:4px 0}.health-tile small{font-size:8px;color:#697d95}
+.health-status{margin-top:10px;padding:10px 12px;border-radius:13px;background:rgba(255,180,84,.07);border:1px solid rgba(255,180,84,.14);font-size:9px;color:#c4a373}
+.coin-zone{height:230px;display:grid;place-items:center;position:relative;margin:0 auto}
+.coin{width:138px;height:138px;position:relative;transform-style:preserve-3d;filter:drop-shadow(0 22px 19px rgba(0,0,0,.22))}
+.coin.flipping{animation:coinFlip 1.65s cubic-bezier(.16,.8,.22,1)}
+.coin-face{position:absolute;inset:0;border-radius:50%;backface-visibility:hidden;display:grid;place-items:center;border:5px solid rgba(255,255,255,.75);box-shadow:inset 0 0 0 5px rgba(7,17,31,.11),inset 0 0 30px rgba(255,255,255,.35)}
+.coin-front{background:linear-gradient(145deg,#74f3ff,#557dff)}.coin-back{background:linear-gradient(145deg,#d7b5ff,#8d62ff);transform:rotateY(180deg)}
+.coin-face svg{width:94px;height:94px}
+@keyframes coinFlip{0%{transform:translateY(0) rotateY(0)}35%{transform:translateY(-105px) rotateY(900deg) rotateX(360deg) scale(1.12)}70%{transform:translateY(-20px) rotateY(1620deg) rotateX(620deg)}100%{transform:translateY(0) rotateY(2160deg) rotateX(720deg)}}
+.pair-labels{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:-8px}
+.pair-option{padding:9px;border-radius:13px;text-align:center;border:1px solid rgba(7,17,31,.12);background:rgba(255,255,255,.48);font-size:9px;font-weight:900}
+.flip-btn{display:block;margin:10px auto 0;width:80%;padding:12px;border:0;border-radius:14px;color:#06101d;background:linear-gradient(135deg,#47f1ff,#b28cff);font-weight:950}
+.flip-result{text-align:center;font-size:10px;font-weight:950;letter-spacing:.1em;margin-top:8px;min-height:15px}
+@media(max-width:760px){.health-top{grid-template-columns:1fr}.health-connect{width:100%}.health-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+.analytics-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}
+.analytics-panel,.heatmap-panel{padding:18px}
+.analytics-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.analytics-kicker{font-size:9px;letter-spacing:.16em;color:var(--cyan);font-weight:950}
+.analytics-heading h3{font-size:20px;margin:5px 0 0;letter-spacing:-.03em}
+.total-rep-badge{min-width:84px;padding:10px 12px;border-radius:16px;text-align:center;background:rgba(71,241,255,.07);border:1px solid rgba(71,241,255,.17)}
+.total-rep-badge strong{display:block;font-size:24px}.total-rep-badge span{font-size:8px;color:var(--muted)}
+.rep-chart{display:grid;gap:10px}
+.rep-row{display:grid;grid-template-columns:minmax(105px,1.2fr) 2fr auto;gap:10px;align-items:center}
+.rep-name{font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rep-track{height:12px;border-radius:999px;background:rgba(255,255,255,.055);overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.rep-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--violet));box-shadow:0 0 17px rgba(71,241,255,.24);transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.rep-number{font-size:12px;font-weight:950;min-width:28px;text-align:right}
+.rep-empty{padding:25px;text-align:center;border-radius:18px;border:1px dashed var(--line);color:var(--muted);font-size:11px}
+.heat-legend{display:flex;align-items:center;gap:4px;font-size:8px;color:var(--muted)}
+.heat-legend i{width:11px;height:11px;border-radius:4px}
+.heat-legend i:nth-of-type(1){background:rgba(71,241,255,.18)}
+.heat-legend i:nth-of-type(2){background:rgba(71,241,255,.38)}
+.heat-legend i:nth-of-type(3){background:rgba(163,117,255,.62)}
+.heat-legend i:nth-of-type(4){background:#ff6680}
+.body-heatmap{display:grid;grid-template-columns:minmax(210px,1fr) 145px;gap:12px;align-items:center}
+#bodyMap{width:100%;max-height:355px;overflow:visible}
+.body-base{fill:rgba(255,255,255,.025)}
+.heat-zone{fill:rgba(71,241,255,.06);stroke:rgba(71,241,255,.08);stroke-width:1.5;transition:fill .5s,filter .5s,opacity .5s}
+.heat-zone[data-level="1"]{fill:rgba(71,241,255,.23)}
+.heat-zone[data-level="2"]{fill:rgba(71,241,255,.48);filter:url(#heatGlow)}
+.heat-zone[data-level="3"]{fill:rgba(163,117,255,.78);filter:url(#heatGlow)}
+.heat-zone[data-level="4"]{fill:#ff6680;filter:url(#heatGlow)}
+.heat-summary{display:grid;gap:9px}
+.heat-summary div{padding:12px;border-radius:15px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.heat-summary span{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.heat-summary strong{display:block;font-size:13px;margin-top:5px}
+.fit-shuffle-overlay{position:fixed;inset:0;z-index:250;display:none;place-items:center;background:rgba(3,7,15,.93);backdrop-filter:blur(18px)}
+.fit-shuffle-overlay.show{display:grid}
+.fit-shuffle-copy{position:absolute;top:calc(22% - 30px);font-size:10px;letter-spacing:.22em;color:var(--cyan);font-weight:950}
+.fit-shuffle-stage{position:relative;width:170px;height:240px;perspective:1000px}
+.shuffle-card{position:absolute;inset:0;border-radius:22px;border:5px solid #eaf4ff;background:repeating-linear-gradient(45deg,#17253c 0 7px,#233b61 7px 14px);box-shadow:0 25px 60px rgba(0,0,0,.45)}
+.fit-shuffle-overlay.show .sc1{animation:riffleA 1.35s ease-in-out infinite}
+.fit-shuffle-overlay.show .sc2{animation:riffleB 1.35s .08s ease-in-out infinite}
+.fit-shuffle-overlay.show .sc3{animation:riffleA 1.35s .16s ease-in-out infinite}
+.fit-shuffle-overlay.show .sc4{animation:riffleB 1.35s .24s ease-in-out infinite}
+@keyframes riffleA{0%,100%{transform:translateX(0) rotate(0)}35%{transform:translateX(-95px) rotate(-17deg) translateY(-18px)}70%{transform:translateX(18px) rotate(4deg)}}
+@keyframes riffleB{0%,100%{transform:translateX(0) rotate(0)}35%{transform:translateX(95px) rotate(17deg) translateY(18px)}70%{transform:translateX(-18px) rotate(-4deg)}}
+.playing-card{will-change:transform,opacity}
+.playing-card.dragging{cursor:grabbing;box-shadow:0 36px 90px rgba(0,0,0,.54)}
+.swipe-direction{position:absolute;top:48%;z-index:8;font-size:12px;font-weight:1000;letter-spacing:.13em;padding:10px 14px;border-radius:12px;opacity:0;transition:opacity .1s}
+.swipe-direction.left{left:18px;color:#ff6680;border:2px solid #ff6680;transform:rotate(-12deg)}
+.swipe-direction.right{right:18px;color:#4df0a9;border:2px solid #4df0a9;transform:rotate(12deg)}
+@media(max-width:760px){
+ .analytics-grid{grid-template-columns:1fr}
+ .body-heatmap{grid-template-columns:1fr 130px}
+}
+@media(max-width:420px){
+ .analytics-panel,.heatmap-panel{padding:14px}
+ .rep-row{grid-template-columns:90px 1fr 28px;gap:7px}
+ .body-heatmap{grid-template-columns:1fr}
+ .heat-summary{grid-template-columns:1fr 1fr}
+ #bodyMap{max-height:320px}
+}
+
+
+.fitdeck-brand{
+  display:inline-block;font-size:clamp(34px,6vw,72px);font-weight:1000;letter-spacing:-.075em;
+  line-height:.85;background:linear-gradient(100deg,#ffffff 5%,#8be9ff 38%,#8d7dff 72%,#ffffff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 38px rgba(71,241,255,.18);filter:drop-shadow(0 12px 25px rgba(0,0,0,.38))
+}
+.fitdeck-brand span{background:linear-gradient(90deg,#65e9ff,#b184ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cards-progress-panel{padding:18px}
+.progress-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.progress-stat{padding:14px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015))}
+.progress-stat span{display:block;font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.progress-stat strong{display:block;font-size:27px;margin-top:6px}
+.progress-stat small{display:block;font-size:8px;color:var(--muted);margin-top:3px}
+.cards-chart-wrap{height:290px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(71,241,255,.035),rgba(255,255,255,.01));padding:12px}
+#cardsDailyChart{width:100%;height:100%;overflow:visible}
+.chart-grid-line{stroke:rgba(255,255,255,.07);stroke-width:1}
+.chart-axis-label{fill:#738096;font-size:10px;font-weight:800}
+.chart-line{fill:none;stroke:#62e8ff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 9px rgba(98,232,255,.42))}
+.chart-area{fill:url(#cardsAreaGradient)}
+.chart-point{fill:#0b111c;stroke:#8ef2ff;stroke-width:3}
+.chart-point.today{fill:#9a78ff;stroke:#fff}
+.body-heatmap-pro{position:relative}
+.body-tabs{display:flex;justify-content:center;gap:7px;margin-bottom:10px}
+.body-tab{border:1px solid var(--line);background:#0c121d;color:var(--muted);padding:8px 14px;border-radius:999px;font-size:9px;font-weight:950}
+.body-tab.active{background:linear-gradient(135deg,#4ee6ff,#8c74ff);color:#050912;border-color:transparent}
+.body-view{display:none;min-height:410px}
+.body-view.active{display:block}
+.body-map-pro{width:100%;height:410px;overflow:visible}
+.body-silhouette{fill:url(#bodyBaseFront);stroke:rgba(255,255,255,.17);stroke-width:2}
+.heat-zone-pro{fill:rgba(71,241,255,.055);stroke:rgba(255,255,255,.08);stroke-width:1;transition:fill .45s,filter .45s,opacity .45s}
+.heat-zone-pro[data-level="1"]{fill:rgba(65,220,255,.26)}
+.heat-zone-pro[data-level="2"]{fill:rgba(50,188,255,.55);filter:url(#muscleGlowFront)}
+.heat-zone-pro[data-level="3"]{fill:rgba(144,104,255,.78);filter:url(#muscleGlowFront)}
+.heat-zone-pro[data-level="4"]{fill:#ff4f75;filter:url(#muscleGlowFront)}
+.heat-summary-pro{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px;margin-top:8px}
+.heat-summary-pro>div{padding:12px;border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:15px}
+.heat-summary-pro .heat-primary{background:linear-gradient(145deg,rgba(71,241,255,.08),rgba(140,116,255,.07))}
+.heat-summary-pro span{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.heat-summary-pro strong{display:block;font-size:14px;margin-top:5px}
+@media(max-width:760px){
+  .progress-stats{grid-template-columns:1fr 1fr}
+  .body-map-pro{height:360px}
+  .body-view{min-height:360px}
+}
+@media(max-width:420px){
+  .fitdeck-brand{font-size:44px}
+  .progress-stat strong{font-size:23px}
+  .cards-chart-wrap{height:250px;padding:6px}
+  .heat-summary-pro{grid-template-columns:1fr 1fr}
+  .heat-summary-pro .heat-primary{grid-column:1/-1}
+}
+
+
+.summary-popup-stack{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:300;
+  width:min(94vw,820px);display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  pointer-events:none
+}
+.summary-popup{
+  position:relative;display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center;
+  min-height:82px;padding:14px 42px 14px 14px;border-radius:21px;
+  border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(20px);
+  box-shadow:0 22px 70px rgba(0,0,0,.42);pointer-events:auto;
+  transform:translateY(-140%);opacity:0;
+  transition:transform .55s cubic-bezier(.2,.85,.2,1),opacity .35s ease
+}
+.summary-popup.show{transform:translateY(0);opacity:1}
+.muscle-summary-popup{
+  background:
+    radial-gradient(circle at 12% 15%,rgba(255,80,120,.22),transparent 46%),
+    linear-gradient(145deg,rgba(27,19,36,.96),rgba(8,12,21,.96))
+}
+.cards-summary-popup{
+  background:
+    radial-gradient(circle at 12% 15%,rgba(71,241,255,.19),transparent 46%),
+    linear-gradient(145deg,rgba(10,28,39,.96),rgba(8,12,21,.96))
+}
+.summary-popup-icon{
+  width:48px;height:48px;border-radius:16px;display:grid;place-items:center;
+  font-size:22px;font-weight:1000;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12)
+}
+.muscle-summary-popup .summary-popup-icon{color:#ff6d91;box-shadow:inset 0 0 22px rgba(255,80,120,.1)}
+.cards-summary-popup .summary-popup-icon{color:#62e8ff;box-shadow:inset 0 0 22px rgba(71,241,255,.1)}
+.summary-popup-copy{min-width:0}
+.summary-popup-kicker{
+  display:block;font-size:8px;letter-spacing:.14em;font-weight:1000;
+  color:var(--muted);margin-bottom:4px
+}
+.summary-popup-copy strong{
+  display:block;font-size:16px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.summary-popup-copy p{margin:5px 0 0;font-size:9px;line-height:1.45;color:var(--muted)}
+.summary-popup-close{
+  position:absolute;right:10px;top:9px;width:26px;height:26px;border:0;border-radius:9px;
+  background:rgba(255,255,255,.055);color:#aab4c5;font-size:17px;cursor:pointer
+}
+.summary-popup-close:hover{background:rgba(255,255,255,.1);color:#fff}
+@media(max-width:720px){
+  .summary-popup-stack{grid-template-columns:1fr;top:8px;width:min(95vw,520px)}
+  .summary-popup{min-height:74px;padding-top:11px;padding-bottom:11px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="summary-popup-stack" id="summaryPopupStack" aria-live="polite">
+  <article class="summary-popup muscle-summary-popup" id="yesterdayMusclePopup">
+    <button class="summary-popup-close" data-close-popup="yesterdayMusclePopup" aria-label="Close">×</button>
+    <div class="summary-popup-icon">◎</div>
+    <div class="summary-popup-copy">
+      <span class="summary-popup-kicker">YESTERDAY'S MUSCLE REPORT</span>
+      <strong id="yesterdayMuscleTitle">No workout recorded</strong>
+      <p id="yesterdayMuscleText">Complete a workout to start building muscle summaries.</p>
+    </div>
+  </article>
+
+  <article class="summary-popup cards-summary-popup" id="weeklyCardsPopup">
+    <button class="summary-popup-close" data-close-popup="weeklyCardsPopup" aria-label="Close">×</button>
+    <div class="summary-popup-icon">7</div>
+    <div class="summary-popup-copy">
+      <span class="summary-popup-kicker">PAST 7 DAYS</span>
+      <strong><span id="weeklyAverageCards">0.0</span> cards per day</strong>
+      <p id="weeklyCardsText">No cards completed during the last seven days.</p>
+    </div>
+  </article>
+</div>
+
+<div class="app">
+<header class="topbar">
+  <div class="brand title-brand">
+    <div>
+      <div class="app-title">FIT<span>DECK</span></div>
+      <div class="welcome-name" id="welcomeName">Welcome</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="datebox"><input id="activeDate" type="date"></div>
+    <button class="profile-btn" id="profileBtn" aria-label="Edit profile">•••</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="dashboard">
+  <article class="panel hero-copy">
+    <div class="eyebrow">Daily performance system</div>
+    <h2 id="heroTitle">FLIP. TRAIN. EVOLVE.</h2>
+    <p id="heroText">Eight exercises. Four suits. One randomized coin flip decides every card.</p>
+    <div class="day-pill"><span class="dot" id="dayDot"></span><span id="dayPill">Upper Body Day</span></div>
+  </article>
+  <article class="panel score-card">
+    <div class="score-orbit" id="scoreOrbit">
+      <div class="score-center">
+        <strong id="fitScore">0</strong>
+        <span>FIT OVR · 0–99</span>
+        <em id="scoreEquivalent">Daily performance rating</em>
+      </div>
+    </div>
+    <div class="metric-pills metric-pills-four">
+      <div class="metric"><b id="workoutMetric">0</b><span>Workout</span></div>
+      <div class="metric"><b id="waterMetric">0</b><span>Water</span></div>
+      <div class="metric"><b id="activityMetric">0</b><span>Steps</span></div>
+      <div class="metric bonus-metric"><b id="bonusMetric">+0</b><span>Cardio Bonus</span></div>
+    </div>
+  </article>
+</section>
+
+<section class="section" id="workout">
+  <div class="section-title"><div><h3>Workout Deck</h3><p>Swipe left or right to complete the top card.</p></div></div>
+  <div class="grid2">
+    <article class="panel pad">
+      <div class="toolbar">
+        <button class="btn secondary" id="shuffleBtn">Shuffle Deck</button>
+        <span class="deck-status" id="deckStatus">52 cards</span>
+      </div>
+      <div class="deck-stage" id="deckStage"></div>
+      <div class="legend" id="legend"></div>
+    </article>
+    <article class="panel pad">
+      <div class="toolbar">
+        <div><b style="font-size:14px">Completed Cards</b><div style="font-size:10px;color:var(--muted)">Swiped cards are logged instantly.</div></div>
+        <button class="btn danger" id="clearWorkoutBtn">Reset</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><span>Cards</span><b id="cardsDone">0</b></div>
+        <div class="stat"><span>Reps</span><b id="totalReps">0</b></div>
+        <div class="stat"><span>Deck</span><b id="deckPercent">0%</b></div>
+        <div class="stat"><span>Remaining</span><b id="remainingCards">52</b></div>
+      </div>
+      <div class="log-list" id="workoutLog"></div>
+    </article>
+  </div>
+</section>
+
+
+
+
+
+<section class="section" id="analytics">
+  <div class="section-title">
+    <div>
+      <h3>Training Analytics</h3>
+      <p>Live rep totals and a daily muscle-activation heatmap.</p>
+    </div>
+  </div>
+
+  <div class="analytics-grid">
+    <article class="panel analytics-panel">
+      <div class="analytics-heading">
+        <div>
+          <div class="analytics-kicker">TODAY'S VOLUME</div>
+          <h3>Exercise Rep Breakdown</h3>
+        </div>
+        <div class="total-rep-badge"><strong id="analyticsTotalReps">0</strong><span>total reps</span></div>
+      </div>
+      <div class="rep-chart" id="repChart"></div>
+    </article>
+
+    <article class="panel heatmap-panel">
+      <div class="analytics-heading">
+        <div>
+          <div class="analytics-kicker">BODY LOAD</div>
+          <h3>Muscle Heatmap</h3>
+        </div>
+        <div class="heat-legend">
+          <span>Low</span><i></i><i></i><i></i><i></i><span>High</span>
+        </div>
+      </div>
+
+      
+      <div class="body-heatmap-pro">
+        <div class="body-tabs">
+          <button class="body-tab active" data-body-view="front">Front</button>
+          <button class="body-tab" data-body-view="back">Back</button>
+        </div>
+
+        <div class="body-view active" id="bodyFrontView">
+          <svg class="body-map-pro" viewBox="0 0 360 520" role="img" aria-label="Front body muscle heatmap">
+            <defs>
+              <linearGradient id="bodyBaseFront" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1c2637"/>
+                <stop offset="100%" stop-color="#0a101a"/>
+              </linearGradient>
+              <filter id="muscleGlowFront"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+
+            <g class="body-silhouette">
+              <circle cx="180" cy="48" r="31"/>
+              <path d="M150 82 Q180 70 210 82 L230 118 L245 205 L225 275 L211 325 L217 417 L203 492 L181 492 L174 340 L167 492 L145 492 L131 417 L137 325 L123 275 L115 205 L130 118 Z"/>
+              <path d="M132 108 L92 138 L61 251 L79 259 L121 178"/>
+              <path d="M228 108 L268 138 L299 251 L281 259 L239 178"/>
+            </g>
+
+            <g id="muscleShoulders" class="heat-zone-pro">
+              <path d="M130 104 Q145 84 162 96 L156 132 Q136 135 124 120 Z"/>
+              <path d="M230 104 Q215 84 198 96 L204 132 Q224 135 236 120 Z"/>
+            </g>
+            <g id="muscleChest" class="heat-zone-pro">
+              <path d="M156 102 Q180 89 204 102 L203 158 Q180 174 157 158 Z"/>
+            </g>
+            <g id="muscleBiceps" class="heat-zone-pro">
+              <ellipse cx="112" cy="170" rx="16" ry="40" transform="rotate(17 112 170)"/>
+              <ellipse cx="248" cy="170" rx="16" ry="40" transform="rotate(-17 248 170)"/>
+            </g>
+            <g id="muscleTriceps" class="heat-zone-pro">
+              <ellipse cx="103" cy="202" rx="13" ry="34" transform="rotate(17 103 202)"/>
+              <ellipse cx="257" cy="202" rx="13" ry="34" transform="rotate(-17 257 202)"/>
+            </g>
+            <g id="muscleCore" class="heat-zone-pro">
+              <path d="M157 164 L203 164 L207 252 Q180 269 153 252 Z"/>
+            </g>
+            <g id="muscleQuads" class="heat-zone-pro">
+              <path d="M144 290 Q132 344 143 412 L171 412 L176 292 Z"/>
+              <path d="M216 290 Q228 344 217 412 L189 412 L184 292 Z"/>
+            </g>
+            <g id="muscleAdductors" class="heat-zone-pro">
+              <path d="M169 292 L178 413 L156 413 L149 324 Z"/>
+              <path d="M191 292 L182 413 L204 413 L211 324 Z"/>
+            </g>
+            <g id="muscleCalves" class="heat-zone-pro">
+              <ellipse cx="154" cy="451" rx="14" ry="42"/>
+              <ellipse cx="206" cy="451" rx="14" ry="42"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="body-view" id="bodyBackView">
+          <svg class="body-map-pro" viewBox="0 0 360 520" role="img" aria-label="Back body muscle heatmap">
+            <defs>
+              <filter id="muscleGlowBack"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g class="body-silhouette">
+              <circle cx="180" cy="48" r="31"/>
+              <path d="M150 82 Q180 70 210 82 L230 118 L245 205 L225 275 L211 325 L217 417 L203 492 L181 492 L174 340 L167 492 L145 492 L131 417 L137 325 L123 275 L115 205 L130 118 Z"/>
+              <path d="M132 108 L92 138 L61 251 L79 259 L121 178"/>
+              <path d="M228 108 L268 138 L299 251 L281 259 L239 178"/>
+            </g>
+            <g id="muscleBackShoulders" class="heat-zone-pro">
+              <path d="M128 106 Q146 86 162 98 L155 136 Q135 137 123 120 Z"/>
+              <path d="M232 106 Q214 86 198 98 L205 136 Q225 137 237 120 Z"/>
+            </g>
+            <g id="muscleUpperBack" class="heat-zone-pro">
+              <path d="M154 100 Q180 88 206 100 L215 178 Q180 198 145 178 Z"/>
+            </g>
+            <g id="muscleBackTriceps" class="heat-zone-pro">
+              <ellipse cx="104" cy="192" rx="14" ry="38" transform="rotate(17 104 192)"/>
+              <ellipse cx="256" cy="192" rx="14" ry="38" transform="rotate(-17 256 192)"/>
+            </g>
+            <g id="muscleGlutes" class="heat-zone-pro">
+              <ellipse cx="158" cy="279" rx="31" ry="36"/>
+              <ellipse cx="202" cy="279" rx="31" ry="36"/>
+            </g>
+            <g id="muscleHamstrings" class="heat-zone-pro">
+              <path d="M143 310 Q135 353 146 411 L171 411 L176 310 Z"/>
+              <path d="M217 310 Q225 353 214 411 L189 411 L184 310 Z"/>
+            </g>
+            <g id="muscleBackCalves" class="heat-zone-pro">
+              <ellipse cx="154" cy="451" rx="14" ry="42"/>
+              <ellipse cx="206" cy="451" rx="14" ry="42"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="heat-summary-pro">
+          <div class="heat-primary">
+            <span>Most worked</span>
+            <strong id="mostWorkedMuscle">No activity</strong>
+          </div>
+          <div>
+            <span>Active groups</span>
+            <strong id="activeMuscleCount">0</strong>
+          </div>
+          <div>
+            <span>Total reps</span>
+            <strong id="heatTotalReps">0</strong>
+          </div>
+        </div>
+      </div>
+
+    </article>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section" id="progress">
+  <div class="section-title">
+    <div>
+      <h3>Card Activity</h3>
+      <p>Cards completed each day. Weekends with zero activity are excluded from averages.</p>
+    </div>
+  </div>
+
+  <article class="panel cards-progress-panel">
+    <div class="progress-stats">
+      <div class="progress-stat">
+        <span>Average cards</span>
+        <strong id="avgCardsPerDay">0.0</strong>
+        <small>per active weekday</small>
+      </div>
+      <div class="progress-stat">
+        <span>Best day</span>
+        <strong id="bestCardsDay">0</strong>
+        <small id="bestCardsDayLabel">No activity</small>
+      </div>
+      <div class="progress-stat">
+        <span>Active days</span>
+        <strong id="activeDaysCount">0</strong>
+        <small>days with cards completed</small>
+      </div>
+      <div class="progress-stat">
+        <span>This week</span>
+        <strong id="cardsThisWeek">0</strong>
+        <small>cards completed</small>
+      </div>
+    </div>
+
+    <div class="cards-chart-wrap">
+      <svg id="cardsDailyChart" viewBox="0 0 760 270" role="img" aria-label="Cards completed each day"></svg>
+    </div>
+  </article>
+</section>
+
+</main>
+</div>
+
+<nav class="bottom-nav"><a href="#dashboard">OVR</a><a href="#workout">Deck</a><a href="#progress">Progress</a></nav>
+
+<div class="onboarding" id="onboarding">
+  <div class="onboarding-card">
+    <div class="onboarding-logo">FD</div>
+    <div class="eyebrow">Your fitness system</div>
+    <h2>Welcome to <span class="fitdeck-brand">FIT<span>DECK</span></span>.</h2>
+    <p>Create your profile to personalize the app. Your workouts, water, activity, and progress will save automatically on this device.</p>
+    <div class="name-grid">
+      <div class="field"><label>First name</label><input id="firstNameInput" type="text" autocomplete="given-name" placeholder="First name"></div>
+      <div class="field"><label>Last name</label><input id="lastNameInput" type="text" autocomplete="family-name" placeholder="Last name"></div>
+    </div>
+    <button class="start-btn" id="startAppBtn">Enter <span class="fitdeck-brand">FIT<span>DECK</span></span></button>
+    <div class="save-note">Data is stored in this browser using local storage. It remains after closing the app, but it will not automatically sync between different phones or browsers.</div>
+  </div>
+</div>
+
+<div class="profile-sheet" id="profileSheet">
+  <div class="profile-card">
+    <h3>Edit Profile</h3>
+    <p>Update the name shown at the top of <span class="fitdeck-brand">FIT<span>DECK</span></span>.</p>
+    <div class="name-grid">
+      <div class="field"><label>First name</label><input id="editFirstName" type="text"></div>
+      <div class="field"><label>Last name</label><input id="editLastName" type="text"></div>
+    </div>
+    <div class="profile-actions">
+      <button class="btn secondary" id="closeProfileBtn">Cancel</button>
+      <button class="btn" id="saveProfileBtn">Save Name</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="fit-shuffle-overlay" id="fitShuffleOverlay">
+  <div class="fit-shuffle-copy">SHUFFLING 52 CARDS</div>
+  <div class="fit-shuffle-stage">
+    <div class="shuffle-card sc1"></div>
+    <div class="shuffle-card sc2"></div>
+    <div class="shuffle-card sc3"></div>
+    <div class="shuffle-card sc4"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(()=>{
+const KEY="fitdeck-pro-v2";
+const upper=[
+{name:"Shoulder Presses",suit:"♠",key:"shoulder",color:"#07111f"},
+{name:"Incline Pushups",suit:"♥",key:"pushup",color:"#d9304f"},
+{name:"Hammer Curls",suit:"♣",key:"curl",color:"#07111f"},
+{name:"Tricep Dips",suit:"♦",key:"dip",color:"#d9304f"}];
+const lower=[
+{name:"Squats",suit:"♠",key:"squat",color:"#07111f"},
+{name:"Lunges",suit:"♥",key:"lunge",color:"#d9304f"},
+{name:"Goblet Split Squats",suit:"♣",key:"split",color:"#07111f"},
+{name:"Side Lunges",suit:"♦",key:"side",color:"#d9304f"}];
+
+const suitPairs={
+ "♠":[upper[0],lower[0]],
+ "♥":[upper[1],lower[1]],
+ "♣":[upper[2],lower[2]],
+ "♦":[upper[3],lower[3]]
+};
+
+const ranks=[
+{label:"A",value:11},{label:"2",value:2},{label:"3",value:3},{label:"4",value:4},{label:"5",value:5},{label:"6",value:6},
+{label:"7",value:7},{label:"8",value:8},{label:"9",value:9},{label:"10",value:10},{label:"J",value:10},{label:"Q",value:10},{label:"K",value:10}
+];
+let db=load(),active=today();db.profile=db.profile||{first:"",last:""};
+const $=id=>document.getElementById(id);
+$("activeDate").value=active;
+
+function today(){const d=new Date(),o=d.getTimezoneOffset();return new Date(d-o*60000).toISOString().slice(0,10)}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},settings:{goal:96},profile:{first:"",last:""}}}catch{return{days:{},settings:{goal:96},profile:{first:"",last:""}}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function type(date){const n=new Date(date+"T12:00:00").getDay();return n===0||n===6?"rest":[1,3,5].includes(n)?"upper":"lower"}
+function set(){return type(active)==="lower"?lower:upper}
+function id(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}
+function ensure(){
+ if(!db.days[active])db.days[active]={type:type(active),deck:[],pointer:0,logs:[],water:0,goal:db.settings.goal||96,steps:0,activities:[],flipResults:{}};
+ const d=db.days[active];d.type=type(active);d.logs=d.logs||[];d.activities=d.activities||[];d.deck=d.deck||[];d.flipResults=d.flipResults||{};
+ if(!d.deck.length&&d.type!=="rest")makeDeck(false);
+ return d
+}
+function makeDeck(doSave=true){
+ const d=db.days[active]||(db.days[active]={type:type(active),logs:[],water:0,goal:96,steps:0,activities:[]});
+ d.deck=[];
+ if(d.type!=="rest")set().forEach((ex,exIndex)=>ranks.forEach(r=>d.deck.push({id:id(),exIndex,label:r.label,value:r.value})));
+ shuffle(d.deck);d.pointer=0;if(doSave)save()
+}
+function svg(key){
+ const start='<svg viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#47f1ff"/><stop offset="1" stop-color="#a375ff"/></linearGradient></defs><g stroke="#07111f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="100" cy="40" r="16" fill="url(#g)" stroke-width="5"/>';
+ const end='</g></svg>';
+ const m={
+ shoulder:'<path d="M100 58v63M100 77L68 96M100 77l32 19M68 96V52M132 96V52M50 52h36M114 52h36M82 120l-18 55M118 120l18 55"/>',
+ pushup:'<path d="M37 145h126M54 141l36-55 63 21M90 86l-8 48M153 107l7 31M81 134l-25 5M160 138l16 1"/><circle cx="78" cy="74" r="14" fill="url(#g)" stroke-width="5"/>',
+ curl:'<path d="M100 58v65M100 77L71 96M100 77l29 19M71 96l-6 38M129 96l6 38M82 122l-18 53M118 122l18 53M51 132h26M123 132h26"/>',
+ dip:'<path d="M46 122h108M52 122v53M148 122v53M100 58l-8 53M92 111l-38 3M92 111l35 25M127 136l21-16M90 111l-13 55M127 136l16 34"/>',
+ squat:'<path d="M100 58v56M100 78L68 103M100 78l32 25M68 103h64M100 114l-28 29M100 114l28 29M72 143l-8 32M128 143l8 32M55 96h90"/>',
+ lunge:'<path d="M100 58v61M100 78L69 104M100 78l31 26M100 119L66 142M66 142l-25 31M100 119l38 28M138 147h35"/>',
+ split:'<path d="M100 58v58M100 78L65 104M100 78l35 26M65 104h70M100 116L67 145M67 145l-8 30M100 116l38 28M138 144l30 12M57 96h86"/>',
+ side:'<path d="M100 58v59M100 78L65 105M100 78l35 27M100 117L52 145M52 145l-28 4M100 117l35 47M135 164h33"/>'
+ };
+ return start+(m[key]||m.squat)+end
+}
+
+function renderProfile(){
+ const first=(db.profile.first||"").trim(),last=(db.profile.last||"").trim();
+ $("welcomeName").textContent=first?`Welcome, ${first}`:"Welcome";
+ $("onboarding").classList.toggle("hidden",Boolean(first&&last));
+ $("firstNameInput").value=first;
+ $("lastNameInput").value=last;
+ $("editFirstName").value=first;
+ $("editLastName").value=last
+}
+function render(){
+ renderProfile();
+ const d=ensure(),t=d.type;
+ $("dayPill").textContent=t==="upper"?"Upper Body Day":t==="lower"?"Lower Body Day":"Recovery Day";
+ $("heroTitle").textContent=t==="rest"?"Recover. Reset. Return.":t==="upper"?"Upper Body Day":"Lower Body Strength Day";
+ $("heroText").textContent=t==="rest"?"Saturday and Sunday are recovery days. They are stored but excluded from scoring.":t==="upper"?"Shoulder presses, incline pushups, hammer curls and tricep dips. Runs and bike rides can add bonus points.":"Squats, lunges, goblet split squats and side lunges. Swipe each card to log it.";
+ $("dayDot").style.background=t==="rest"?"#a375ff":"#4df0a9";
+ renderDeck();renderLegend();renderLogs();renderAnalytics();renderSummaryPopups();renderProgress()
+}
+function renderDeck(){
+ const d=ensure(),host=$("deckStage");
+ if(d.type==="rest"){host.innerHTML='<div class="empty" style="width:100%;min-height:420px"><div><div style="font-size:46px">☾</div><br><b style="color:white;font-size:16px">Recovery day</b><br><br>No workout deck assigned.</div></div>';$("deckStatus").textContent="Rest day";return}
+ if(d.pointer>=d.deck.length){host.innerHTML='<div class="empty" style="width:100%;min-height:420px"><div><div style="font-size:46px">✓</div><br><b style="color:white;font-size:16px">Deck complete</b><br><br>All 52 cards logged.</div></div>';$("deckStatus").textContent="52 of 52 complete";return}
+ const c=d.deck[d.pointer],suit=set()[c.exIndex].suit,pair=suitPairs[suit],pick=d.flipResults[c.id];
+ const selected=(pick===0||pick===1)?pair[pick]:null,red=["♥","♦"].includes(suit);
+ $("deckStatus").textContent=`${d.pointer} complete · ${52-d.pointer} remaining`;
+ host.innerHTML=`<div class="deck-shadow"></div><div class="deck-shadow2"></div>
+ <div class="playing-card ${red?"red":""}" id="activeCard"><div class="swipe-direction left" id="swipeLeftLabel">COMPLETE</div><div class="swipe-direction right" id="swipeRightLabel">COMPLETE</div>
+ <div class="corner tl" style="color:${red?"#d9304f":"#07111f"}">${c.label}<small>${suit}</small></div>
+ <div class="corner br" style="color:${red?"#d9304f":"#07111f"}">${c.label}<small>${suit}</small></div>
+ <div class="card-rank-label">${c.label==="A"?"ACE · 11 REPS":["J","Q","K"].includes(c.label)?"FACE CARD · 10 REPS":"<span class="fitdeck-brand">FIT<span>DECK</span></span> COIN CARD"}</div>
+ <div class="exercise-name">${selected?selected.name:`${pair[0].name} / ${pair[1].name}`}</div>
+ <div class="coin-zone"><div class="coin" id="coin"><div class="coin-face coin-front">${svg(pair[0].key)}</div><div class="coin-face coin-back">${svg(pair[1].key)}</div></div></div>
+ <div class="pair-labels"><div class="pair-option">${pair[0].name}</div><div class="pair-option">${pair[1].name}</div></div>
+ ${selected?`<div class="flip-result">SELECTED · ${selected.name.toUpperCase()}</div><div class="rep-value"><strong>${c.value}</strong><span>REPS · SWIPE TO COMPLETE</span></div>`:`<button class="flip-btn" id="flipCoinBtn">FLIP COIN</button><div class="flip-result">Coin decides the exercise</div>`}
+ </div>`;
+ if(selected)bindSwipe($("activeCard"));else $("flipCoinBtn").onclick=()=>flipCoin(c,pair)
+}
+function flipCoin(card,pair){
+ const coin=$("coin"),btn=$("flipCoinBtn");if(!coin||coin.classList.contains("flipping"))return;
+ btn.disabled=true;coin.classList.add("flipping");const result=Math.random()<.5?0:1;
+ setTimeout(()=>{const d=ensure();d.flipResults[card.id]=result;save();toast(`${pair[result].name} selected`);renderDeck()},1600)
+}
+function bindSwipe(card){
+ let startX=0,startY=0,currentX=0,currentY=0,startTime=0,drag=false;
+ const leftLabel=$("swipeLeftLabel"),rightLabel=$("swipeRightLabel");
+
+ const reset=()=>{
+   card.style.transform="";
+   if(leftLabel)leftLabel.style.opacity=0;
+   if(rightLabel)rightLabel.style.opacity=0;
+   currentX=0;currentY=0
+ };
+
+ card.addEventListener("pointerdown",e=>{
+   drag=true;startX=e.clientX;startY=e.clientY;currentX=0;currentY=0;startTime=performance.now();
+   card.setPointerCapture&&card.setPointerCapture(e.pointerId);
+   card.classList.add("dragging")
+ });
+
+ card.addEventListener("pointermove",e=>{
+   if(!drag)return;
+   currentX=e.clientX-startX;currentY=e.clientY-startY;
+   const rotation=Math.max(-16,Math.min(16,currentX/18));
+   const lift=Math.min(18,Math.abs(currentX)/10);
+   card.style.transform=`translate3d(${currentX}px,${currentY*.18-lift}px,0) rotate(${rotation}deg) scale(1.015)`;
+   const confidence=Math.min(1,Math.abs(currentX)/95);
+   if(leftLabel)leftLabel.style.opacity=currentX<0?confidence:0;
+   if(rightLabel)rightLabel.style.opacity=currentX>0?confidence:0
+ });
+
+ const endSwipe=()=>{
+   if(!drag)return;
+   drag=false;card.classList.remove("dragging");
+   const elapsed=Math.max(1,performance.now()-startTime);
+   const velocity=Math.abs(currentX)/elapsed;
+   const commit=Math.abs(currentX)>82||velocity>.58;
+   if(commit)completeSwipe(currentX>=0?"right":"left");
+   else{
+     card.animate(
+       [{transform:card.style.transform},{transform:"translate3d(0,0,0) rotate(0deg) scale(1)"}],
+       {duration:260,easing:"cubic-bezier(.2,.85,.25,1)"}
+     );
+     setTimeout(reset,250)
+   }
+ };
+
+ card.addEventListener("pointerup",endSwipe);
+ card.addEventListener("pointercancel",endSwipe);
+}
+function completeSwipe(dir){
+ const d=ensure(),c=d.deck[d.pointer];if(!c)return;
+ const suit=set()[c.exIndex].suit,pair=suitPairs[suit],pick=d.flipResults[c.id];
+ if(pick!==0&&pick!==1)return toast("Flip the coin first");
+ const ex=pair[pick],card=$("activeCard");card.classList.add(dir==="right"?"swipe-right":"swipe-left");
+ d.logs.push({id:id(),exercise:ex.name,suit,label:c.label,reps:c.value,ts:Date.now()});d.pointer++;save();
+ setTimeout(()=>{toast(`${ex.name} · ${c.value} reps`);render()},220)
+}
+function renderLegend(){
+ $("legend").innerHTML=Object.entries(suitPairs).map(([s,p])=>`<div class="legend-item"><b>${s} ${p[0].name}</b><span>or ${p[1].name} · coin decides</span></div>`).join("")
+}
+function renderLogs(){
+ const d=ensure(),logs=d.logs||[];$("cardsDone").textContent=logs.length;$("totalReps").textContent=logs.reduce((s,x)=>s+x.reps,0);
+ $("deckPercent").textContent=Math.round(logs.length/52*100)+"%";$("remainingCards").textContent=Math.max(0,52-logs.length);
+ $("workoutLog").innerHTML=logs.length?logs.slice().reverse().map(x=>`<div class="log-row"><div><b>${x.suit} ${x.exercise}</b><span>${x.label} card · ${x.reps} reps</span></div><button data-rm="${x.id}">×</button></div>`).join(""):'<div class="empty">Swipe your first card to begin.</div>';
+ document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{d.logs=d.logs.filter(x=>x.id!==b.dataset.rm);d.pointer=Math.max(0,d.pointer-1);save();render()})
+}
+
+const exerciseMuscles={
+ "Shoulder Presses":{"Shoulders":1,"Triceps":.45,"UpperBack":.25},
+ "Incline Pushups":{"Chest":1,"Triceps":.65,"Shoulders":.35,"Core":.25},
+ "Hammer Curls":{"Biceps":1},
+ "Tricep Dips":{"Triceps":1,"Chest":.45},
+ "Squats":{"Quads":1,"Glutes":.75,"Adductors":.35,"Hamstrings":.35,"Calves":.2,"Core":.2},
+ "Lunges":{"Quads":.85,"Glutes":1,"Adductors":.35,"Hamstrings":.45,"Calves":.25,"Core":.15},
+ "Goblet Split Squats":{"Quads":1,"Glutes":1,"Adductors":.45,"Hamstrings":.45,"Core":.25},
+ "Side Lunges":{"Adductors":1,"Glutes":.7,"Quads":.6,"Hamstrings":.35,"Core":.15}
+};
+
+
+function getMuscleScoresForLogs(logs){
+  const muscleScores={
+    Shoulders:0,Chest:0,Biceps:0,Triceps:0,Core:0,Quads:0,Glutes:0,
+    Adductors:0,Hamstrings:0,Calves:0,UpperBack:0
+  };
+  (logs||[]).forEach(log=>{
+    const map=exerciseMuscles[log.exercise]||{};
+    Object.entries(map).forEach(([muscle,weight])=>{
+      if(muscleScores[muscle]===undefined)muscleScores[muscle]=0;
+      muscleScores[muscle]+=(Number(log.reps)||0)*weight
+    })
+  });
+  return muscleScores
+}
+
+function getDayDataByDate(date){
+  const key=dateKey(date);
+  return state.days&&state.days[key]?state.days[key]:null
+}
+
+function renderSummaryPopups(){
+  const yesterday=new Date();
+  yesterday.setHours(0,0,0,0);
+  yesterday.setDate(yesterday.getDate()-1);
+
+  const yesterdayData=getDayDataByDate(yesterday);
+  const yesterdayLogs=yesterdayData&&Array.isArray(yesterdayData.logs)?yesterdayData.logs:[];
+  const muscleScores=getMuscleScoresForLogs(yesterdayLogs);
+  const rankedMuscles=Object.entries(muscleScores)
+    .filter(([,score])=>score>0)
+    .sort((a,b)=>b[1]-a[1]);
+
+  if(rankedMuscles.length){
+    const topScore=rankedMuscles[0][1];
+    const leaders=rankedMuscles.filter(([,score])=>score>=topScore*.72).slice(0,3).map(([name])=>name);
+    $("yesterdayMuscleTitle").textContent=leaders.join(", ");
+    const reps=yesterdayLogs.reduce((sum,log)=>sum+(Number(log.reps)||0),0);
+    const cards=yesterdayLogs.length;
+    $("yesterdayMuscleText").textContent=`${cards} card${cards===1?"":"s"} completed and ${reps} total reps recorded yesterday.`
+  }else{
+    $("yesterdayMuscleTitle").textContent="No workout recorded";
+    $("yesterdayMuscleText").textContent="Yesterday had no completed cards, so no muscle group led the day."
+  }
+
+  const sevenDays=[];
+  for(let i=6;i>=0;i--){
+    const dt=new Date();
+    dt.setHours(0,0,0,0);
+    dt.setDate(dt.getDate()-i);
+    const d=getDayDataByDate(dt);
+    sevenDays.push({date:dt,cards:d&&Array.isArray(d.logs)?d.logs.length:0})
+  }
+
+  const included=sevenDays.filter(item=>{
+    const day=item.date.getDay();
+    return !((day===0||day===6)&&item.cards===0)
+  });
+  const total=sevenDays.reduce((sum,item)=>sum+item.cards,0);
+  const average=included.length?total/included.length:0;
+  const activeDays=sevenDays.filter(item=>item.cards>0).length;
+
+  $("weeklyAverageCards").textContent=average.toFixed(1);
+  $("weeklyCardsText").textContent=total
+    ?`${total} total cards across ${activeDays} active day${activeDays===1?"":"s"}. Zero-card weekends are excluded from the average.`
+    :"No cards completed during the last seven days.";
+
+  const todayKey=dateKey(new Date());
+  const shownKey=`fitdeck-summary-popups-${todayKey}`;
+  if(sessionStorage.getItem(shownKey)!=="shown"){
+    setTimeout(()=>$("yesterdayMusclePopup")?.classList.add("show"),350);
+    setTimeout(()=>$("weeklyCardsPopup")?.classList.add("show"),650);
+    sessionStorage.setItem(shownKey,"shown")
+  }
+}
+
+function renderAnalytics(){
+ const d=ensure(),logs=d.logs||[];
+ const names=[...upper,...lower].map(x=>x.name);
+ const totals=Object.fromEntries(names.map(n=>[n,0]));
+ logs.forEach(x=>{totals[x.exercise]=(totals[x.exercise]||0)+(Number(x.reps)||0)});
+
+ const active=Object.entries(totals).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+ const max=Math.max(1,...active.map(([,v])=>v));
+ const totalReps=logs.reduce((s,x)=>s+(Number(x.reps)||0),0); $("analyticsTotalReps").textContent=totalReps; if($("heatTotalReps"))$("heatTotalReps").textContent=totalReps;
+
+ $("repChart").innerHTML=active.length
+   ?active.map(([name,reps])=>`<div class="rep-row">
+      <div class="rep-name">${name}</div>
+      <div class="rep-track"><div class="rep-fill" style="width:${Math.max(4,reps/max*100)}%"></div></div>
+      <div class="rep-number">${reps}</div>
+    </div>`).join("")
+   :'<div class="rep-empty">Complete cards to build today’s rep profile.</div>';
+
+ const muscleScores=getMuscleScoresForLogs(logs);
+
+ const muscleMax=Math.max(1,...Object.values(muscleScores));
+ const idMap={
+   Shoulders:["muscleShoulders","muscleBackShoulders"],
+   Chest:["muscleChest"],Biceps:["muscleBiceps"],Triceps:["muscleTriceps","muscleBackTriceps"],
+   Core:["muscleCore"],Quads:["muscleQuads"],Glutes:["muscleGlutes"],Adductors:["muscleAdductors"],
+   Hamstrings:["muscleHamstrings"],Calves:["muscleCalves","muscleBackCalves"],UpperBack:["muscleUpperBack"]
+ };
+ Object.entries(muscleScores).forEach(([muscle,score])=>{
+   const ids=idMap[muscle]||[];
+   const ratio=score/muscleMax;
+   const level=score<=0?0:ratio<.28?1:ratio<.55?2:ratio<.82?3:4;
+   ids.forEach(id=>{const el=$(id);if(el)el.dataset.level=level})
+ });
+
+ const ranked=Object.entries(muscleScores).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+ $("mostWorkedMuscle").textContent=ranked.length?ranked[0][0]:"No activity";
+ $("activeMuscleCount").textContent=ranked.length
+}
+
+function renderWater(){
+ const d=ensure(),goal=d.goal||96,p=Math.min(100,(d.water||0)/goal*100);
+ $("waterOz").textContent=d.water||0;$("waterGoal").value=goal;$("waterFill").style.height=p+"%";$("waterGoalText").textContent=Math.round(p)+"% of "+goal+" oz goal";
+ $("hydrationScore").textContent=Math.round(p);$("waterRemaining").textContent=Math.max(0,goal-(d.water||0))+" oz"
+}
+function renderActivity(){
+ const d=ensure(),a=d.activities||[];
+ const runMiles=a.filter(x=>x.type==="Run").reduce((s,x)=>s+x.distance,0);
+ const bikeMiles=a.filter(x=>x.type==="Bike").reduce((s,x)=>s+x.distance,0);
+ const runBonus=Math.min(6,runMiles*1.5);
+ const bikeBonus=Math.min(6,bikeMiles*.6);
+ const bonus=Math.min(10,runBonus+bikeBonus);
+
+ 
+ $("stepsStat").textContent=(d.steps||0).toLocaleString();
+ $("runMilesStat").textContent=runMiles.toFixed(1);
+ $("bikeMilesStat").textContent=bikeMiles.toFixed(1);
+ $("bonusStat").textContent="+"+Math.round(bonus);
+
+ $("activityLog").innerHTML=a.length?a.slice().reverse().map(x=>`
+   <div class="log-row">
+     <div>
+       <b>${x.type} · ${x.distance.toFixed(2)} mi</b>
+       <span>${x.minutes} min${x.minutes&&x.distance?" · "+(x.minutes/x.distance).toFixed(1)+" min/mi":""}${x.type==="Walk"?" · logged only":x.type==="Run"?" · bonus eligible":" · bonus eligible"}</span>
+     </div>
+     <button data-ra="${x.id}">×</button>
+   </div>`).join(""):'<div class="empty">No activity logged yet.</div>';
+
+ document.querySelectorAll("[data-ra]").forEach(b=>b.onclick=()=>{
+   d.activities=d.activities.filter(x=>x.id!==b.dataset.ra);
+   save();
+   render()
+ })
+}
+function calc(d){
+ if(!d||d.type==="rest")return{fit:null,workout:0,water:0,activity:0,bonus:0};
+ const workout=Math.min(100,(d.logs||[]).length/52*100);
+ const water=Math.min(100,(d.water||0)/(d.goal||96)*100);
+ const steps=Math.min(100,(d.steps||0)/10000*100);
+ const a=d.activities||[],run=a.filter(x=>x.type==="Run").reduce((s,x)=>s+x.distance,0),bike=a.filter(x=>x.type==="Bike").reduce((s,x)=>s+x.distance,0);
+ const bonus=Math.min(9,run*1.2+bike*.45);
+ const core=workout*.50+water*.25+steps*.25;
+ return{fit:Math.min(99,Math.round(core*.90+bonus)),workout:Math.round(workout),water:Math.round(water),activity:Math.round(steps),bonus:Math.round(bonus)}
+}
+function renderScore(){
+ const s=calc(ensure());
+ if(s.fit===null){$("fitScore").textContent="—";$("scoreEquivalent").textContent="Recovery day · excluded";$("scoreOrbit").style.setProperty("--score",0)}
+ else{$("fitScore").textContent=s.fit;$("scoreEquivalent").textContent=s.fit>=90?"ELITE":s.fit>=80?"EXCELLENT":s.fit>=70?"STRONG":s.fit>=60?"BUILDING":"STARTING";$("scoreOrbit").style.setProperty("--score",s.fit)}
+ $("workoutMetric").textContent=s.workout;$("waterMetric").textContent=s.water;$("activityMetric").textContent=s.activity;$("bonusMetric").textContent="+"+(s.bonus||0)
+}
+function renderProgress(){
+ const days=[];
+ for(let i=13;i>=0;i--){
+   const dt=new Date();dt.setHours(0,0,0,0);dt.setDate(dt.getDate()-i);
+   const key=dateKey(dt);
+   const day=state.days[key]||{};
+   const cards=(day.logs||[]).length;
+   days.push({date:dt,key,cards,label:dt.toLocaleDateString(undefined,{weekday:"short"}),short:dt.toLocaleDateString(undefined,{month:"short",day:"numeric"})})
+ }
+
+ const weekdayAverageDays=days.filter(d=>{
+   const dow=d.date.getDay();
+   return !((dow===0||dow===6)&&d.cards===0)
+ });
+ const avg=weekdayAverageDays.length
+   ?weekdayAverageDays.reduce((s,d)=>s+d.cards,0)/weekdayAverageDays.length
+   :0;
+
+ const best=[...days].sort((a,b)=>b.cards-a.cards)[0];
+ const active=days.filter(d=>d.cards>0).length;
+ const now=new Date();
+ const monday=new Date(now);monday.setHours(0,0,0,0);
+ const day=(monday.getDay()+6)%7;monday.setDate(monday.getDate()-day);
+ const weekCards=days.filter(d=>d.date>=monday).reduce((s,d)=>s+d.cards,0);
+
+ $("avgCardsPerDay").textContent=avg.toFixed(1);
+ $("bestCardsDay").textContent=best?best.cards:0;
+ $("bestCardsDayLabel").textContent=best&&best.cards>0?best.short:"No activity";
+ $("activeDaysCount").textContent=active;
+ $("cardsThisWeek").textContent=weekCards;
+
+ const svg=$("cardsDailyChart");
+ if(!svg)return;
+ const W=760,H=270,p={l:42,r:20,t:20,b:42};
+ const max=Math.max(5,...days.map(d=>d.cards));
+ const stepX=(W-p.l-p.r)/Math.max(1,days.length-1);
+ const y=v=>p.t+(H-p.t-p.b)*(1-v/max);
+ const pts=days.map((d,i)=>({x:p.l+i*stepX,y:y(d.cards),...d}));
+ const path=pts.map((pt,i)=>`${i?"L":"M"} ${pt.x.toFixed(1)} ${pt.y.toFixed(1)}`).join(" ");
+ const area=`M ${pts[0].x} ${H-p.b} `+pts.map(pt=>`L ${pt.x} ${pt.y}`).join(" ")+` L ${pts[pts.length-1].x} ${H-p.b} Z`;
+
+ let grid="";
+ for(let i=0;i<=4;i++){
+   const val=Math.round(max*(4-i)/4);
+   const gy=p.t+(H-p.t-p.b)*i/4;
+   grid+=`<line class="chart-grid-line" x1="${p.l}" y1="${gy}" x2="${W-p.r}" y2="${gy}"/>
+          <text class="chart-axis-label" x="${p.l-10}" y="${gy+4}" text-anchor="end">${val}</text>`
+ }
+ const labels=pts.map((pt,i)=>i%2===0||i===pts.length-1?`<text class="chart-axis-label" x="${pt.x}" y="${H-14}" text-anchor="middle">${pt.label}</text>`:"").join("");
+ const points=pts.map((pt,i)=>`<circle class="chart-point ${i===pts.length-1?"today":""}" cx="${pt.x}" cy="${pt.y}" r="${i===pts.length-1?6:4}"><title>${pt.short}: ${pt.cards} cards</title></circle>`).join("");
+
+ svg.innerHTML=`<defs><linearGradient id="cardsAreaGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#62e8ff" stop-opacity=".28"/><stop offset="100%" stop-color="#62e8ff" stop-opacity="0"/></linearGradient></defs>${grid}<path class="chart-area" d="${area}"/><path class="chart-line" d="${path}"/>${points}${labels}`;
+}
+function draw(data){
+ const c=$("progressChart"),r=c.getBoundingClientRect(),dpr=devicePixelRatio||1;c.width=r.width*dpr;c.height=270*dpr;const x=c.getContext("2d");x.scale(dpr,dpr);
+ const w=r.width,h=270,p={l:38,r:14,t:15,b:32},pw=w-p.l-p.r,ph=h-p.t-p.b;x.clearRect(0,0,w,h);x.font="10px system-ui";x.fillStyle="#8da0b8";x.strokeStyle="rgba(255,255,255,.08)";
+ [-50,-25,0,25,50].forEach(v=>{const yy=p.t+(50-v)/100*ph;x.beginPath();x.moveTo(p.l,yy);x.lineTo(w-p.r,yy);x.stroke();x.fillText((v>0?"+":"")+v,4,yy+3)});
+ if(!data.length){x.textAlign="center";x.fillText("Complete a weekday to begin.",w/2,h/2);return}
+ const xx=i=>data.length===1?p.l+pw/2:p.l+i/(data.length-1)*pw,yy=v=>p.t+(50-v)/100*ph;let sum=0;const cum=data.map((d,i)=>(sum+=d.s.fit)/(i+1));
+ line(data.map((d,i)=>[xx(i),yy(d.s.fit)]),"#47f1ff",2.5,true);line(cum.map((v,i)=>[xx(i),yy(v)]),"#a375ff",2,false);
+ x.fillStyle="#8da0b8";x.textAlign="center";const labs=data.length<=6?data.map((_,i)=>i):[0,Math.floor((data.length-1)/2),data.length-1];labs.forEach(i=>x.fillText(data[i].date.slice(5),xx(i),h-9));
+ function line(pts,col,lw,dots){x.strokeStyle=col;x.lineWidth=lw;x.beginPath();pts.forEach((q,i)=>i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]));x.stroke();if(dots)pts.forEach(q=>{x.fillStyle=col;x.beginPath();x.arc(q[0],q[1],3,0,Math.PI*2);x.fill()})}
+}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1500)}
+$("activeDate").onchange=e=>{active=e.target.value||today();render()};
+$("shuffleBtn").onclick=()=>{
+ const d=ensure();if(d.type==="rest")return toast("No deck on recovery days");
+ const overlay=$("fitShuffleOverlay");overlay.classList.add("show");
+ setTimeout(()=>{
+   d.logs=[];d.flipResults={};makeDeck();overlay.classList.remove("show");
+   toast("Fresh 52-card deck");render()
+ },1450)
+};
+$("clearWorkoutBtn").onclick=()=>{const d=ensure();d.logs=[];makeDeck(false);save();
+document.querySelectorAll(".body-tab").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+   document.querySelectorAll(".body-tab").forEach(b=>b.classList.toggle("active",b===btn));
+   $("bodyFrontView").classList.toggle("active",btn.dataset.bodyView==="front");
+   $("bodyBackView").classList.toggle("active",btn.dataset.bodyView==="back")
+ })
+});
+
+render();toast("Deck reset")};
+$("add169Btn").onclick=()=>{const d=ensure();d.water=Math.round(((d.water||0)+16.9)*10)/10;save();render()};
+$("minus169Btn").onclick=()=>{const d=ensure();d.water=Math.max(0,Math.round(((d.water||0)-16.9)*10)/10);save();render()};
+$("manualWaterBtn").onclick=()=>{const amount=Math.max(0,Number($("manualWaterInput").value)||0);if(!amount)return toast("Enter an amount");const d=ensure();d.water=Math.round(((d.water||0)+amount)*10)/10;$("manualWaterInput").value="";save();render()};
+$("resetWaterBtn").onclick=()=>{const d=ensure();d.water=0;save();render()};
+$("waterGoal").onchange=e=>{const d=ensure();d.goal=Math.max(24,Number(e.target.value)||96);db.settings.goal=d.goal;save();render()};
+$("logActivityBtn").onclick=()=>{const d=ensure(),distance=Math.max(0,Number($("activityDistance").value)||0),minutes=Math.max(0,Number($("activityMinutes").value)||0);d.steps=Math.max(0,Number(if(distance||minutes)d.activities.push({id:id(),type:$("activityType").value,distance,minutes});$("activityDistance").value="";$("activityMinutes").value="";save();toast("Activity saved");render()};
+
+$("startAppBtn").onclick=()=>{
+ const first=$("firstNameInput").value.trim(),last=$("lastNameInput").value.trim();
+ if(!first||!last)return toast("Enter your first and last name");
+ db.profile={first,last};save();renderProfile();toast(`Welcome, ${first}`)
+};
+$("profileBtn").onclick=()=>{
+ $("editFirstName").value=db.profile.first||"";
+ $("editLastName").value=db.profile.last||"";
+ $("profileSheet").classList.add("show")
+};
+$("closeProfileBtn").onclick=()=>$("profileSheet").classList.remove("show");
+$("profileSheet").onclick=e=>{if(e.target===$("profileSheet"))$("profileSheet").classList.remove("show")};
+$("saveProfileBtn").onclick=()=>{
+ const first=$("editFirstName").value.trim(),last=$("editLastName").value.trim();
+ if(!first||!last)return toast("Enter both names");
+ db.profile={first,last};save();$("profileSheet").classList.remove("show");renderProfile();toast("Profile updated")
+};
+
+toast("Apple Health requires the iPhone app version")};
+window.addEventListener("resize",renderProgress);
+document.querySelectorAll("[data-close-popup]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const popup=$(btn.dataset.closePopup);
+    if(popup)popup.classList.remove("show")
+  })
+});
+
+render();
+})();
+</script>
+</body>
+</html>
