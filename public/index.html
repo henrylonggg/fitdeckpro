@@ -472,6 +472,33 @@ canvas{display:block;width:100%;height:270px}
   .summary-popup{min-height:74px;padding-top:11px;padding-bottom:11px}
 }
 
+
+/* Polished login */
+.onboarding{padding:24px;background:#030710;overflow:auto}
+.login-shell{width:min(100%,980px);min-height:590px;display:grid;grid-template-columns:1.05fr .95fr;border:1px solid rgba(255,255,255,.1);border-radius:36px;overflow:hidden;background:rgba(7,13,24,.96);box-shadow:0 45px 130px rgba(0,0,0,.72);position:relative}
+.login-visual{position:relative;overflow:hidden;min-height:590px;padding:42px;background:radial-gradient(circle at 40% 40%,rgba(71,241,255,.15),transparent 35%),radial-gradient(circle at 70% 65%,rgba(163,117,255,.2),transparent 40%),linear-gradient(145deg,#07111f,#050914)}
+.login-visual:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,black,transparent)}
+.login-orbit{position:absolute;border:1px solid rgba(103,232,255,.18);border-radius:50%;animation:loginSpin 18s linear infinite}
+.orbit-one{width:430px;height:430px;left:45px;top:70px}.orbit-two{width:320px;height:320px;left:100px;top:125px;animation-direction:reverse;animation-duration:13s}
+.login-card-stack{position:absolute;left:50%;top:45%;width:245px;height:350px;transform:translate(-50%,-50%);z-index:2}
+.login-playing-card{position:absolute;inset:0;border-radius:28px;border:1px solid rgba(255,255,255,.18);box-shadow:0 35px 80px rgba(0,0,0,.48)}
+.login-card-back{transform:rotate(-13deg) translate(-30px,8px);background:linear-gradient(145deg,#18213a,#0b1020)}
+.login-card-mid{transform:rotate(9deg) translate(27px,8px);background:linear-gradient(145deg,#3f2e70,#141026)}
+.login-card-front{display:grid;place-items:center;background:linear-gradient(155deg,#f9fcff,#dce8f4);color:#07111f;transform:rotate(-2deg);animation:loginFloat 4s ease-in-out infinite}
+.login-card-front strong{font-size:72px;letter-spacing:-.09em}.login-card-rank,.login-card-suit{position:absolute;font-size:31px;font-weight:1000}.login-card-rank{top:22px;left:25px}.login-card-suit{right:25px;bottom:22px}
+.login-visual-copy{position:absolute;left:40px;bottom:34px;z-index:3}.login-visual-copy span{font-size:9px;letter-spacing:.22em;color:#70eaff;font-weight:1000}.login-visual-copy h3{font-size:34px;line-height:1.03;margin:8px 0 0;letter-spacing:-.045em}
+.onboarding-card{width:auto;padding:56px 48px;border:0;border-radius:0;background:linear-gradient(160deg,rgba(14,23,40,.99),rgba(6,12,23,.99));box-shadow:none;display:flex;flex-direction:column;justify-content:center}
+.onboarding-card:before{background:radial-gradient(circle at 90% 0,rgba(71,241,255,.1),transparent 30%)}
+.login-brand{font-size:44px;font-weight:1000;letter-spacing:-.09em;line-height:.9;margin-bottom:25px;background:linear-gradient(95deg,#fff,#72eaff 55%,#a985ff);-webkit-background-clip:text;background-clip:text;color:transparent}.login-brand span{color:#fff}
+.onboarding h2{font-size:42px;margin:8px 0 12px}.onboarding p{font-size:13px;margin-bottom:25px;max-width:390px}
+.login-name-grid{gap:12px}.login-field input{height:52px;padding:0 15px;border-radius:15px;background:rgba(3,8,17,.75);border:1px solid rgba(255,255,255,.1);font-size:14px;transition:.2s}.login-field input:focus{border-color:#63e9ff;box-shadow:0 0 0 4px rgba(71,241,255,.09)}
+.login-error{min-height:18px;margin-top:9px;font-size:10px;color:#ff728d;font-weight:800}
+.start-btn{height:54px;margin-top:5px;display:flex;align-items:center;justify-content:space-between;padding:0 19px;font-size:14px;cursor:pointer;background:linear-gradient(110deg,#59ecff,#9d86ff);box-shadow:0 18px 45px rgba(71,241,255,.16);transition:transform .2s,box-shadow .2s}.start-btn:hover{transform:translateY(-2px);box-shadow:0 24px 55px rgba(71,241,255,.23)}.start-btn b{font-size:22px}
+.save-note{margin-top:16px;text-align:center}.save-note span{color:#4df0a9;font-size:9px;margin-right:5px}
+@keyframes loginFloat{50%{transform:rotate(1deg) translateY(-12px)}}@keyframes loginSpin{to{transform:rotate(360deg)}}
+@media(max-width:780px){.login-shell{grid-template-columns:1fr;min-height:auto}.login-visual{display:none}.onboarding-card{padding:42px 25px;min-height:560px}.login-brand{font-size:47px}.onboarding h2{font-size:37px}}
+@media(max-width:460px){.onboarding{padding:10px}.login-shell{border-radius:27px}.login-name-grid{grid-template-columns:1fr}.onboarding-card{padding:35px 20px}.onboarding h2{font-size:34px}}
+
 </style>
 </head>
 <body>
@@ -762,17 +789,47 @@ canvas{display:block;width:100%;height:270px}
 <nav class="bottom-nav"><a href="#dashboard">OVR</a><a href="#workout">Deck</a><a href="#progress">Progress</a></nav>
 
 <div class="onboarding" id="onboarding">
-  <div class="onboarding-card">
-    <div class="onboarding-logo">FD</div>
-    <div class="eyebrow">Your fitness system</div>
-    <h2>Welcome to <span class="fitdeck-brand">FIT<span>DECK</span></span>.</h2>
-    <p>Create your profile to personalize the app. Your workouts, water, activity, and progress will save automatically on this device.</p>
-    <div class="name-grid">
-      <div class="field"><label>First name</label><input id="firstNameInput" type="text" autocomplete="given-name" placeholder="First name"></div>
-      <div class="field"><label>Last name</label><input id="lastNameInput" type="text" autocomplete="family-name" placeholder="Last name"></div>
+  <div class="login-shell">
+    <div class="login-visual" aria-hidden="true">
+      <div class="login-orbit orbit-one"></div>
+      <div class="login-orbit orbit-two"></div>
+      <div class="login-card-stack">
+        <div class="login-playing-card login-card-back"></div>
+        <div class="login-playing-card login-card-mid"></div>
+        <div class="login-playing-card login-card-front">
+          <span class="login-card-rank">A</span>
+          <strong>FD</strong>
+          <span class="login-card-suit">♠</span>
+        </div>
+      </div>
+      <div class="login-visual-copy">
+        <span>TRAIN. TRACK. IMPROVE.</span>
+        <h3>Your workout.<br>Your deck.</h3>
+      </div>
     </div>
-    <button class="start-btn" id="startAppBtn">Enter <span class="fitdeck-brand">FIT<span>DECK</span></span></button>
-    <div class="save-note">Data is stored in this browser using local storage. It remains after closing the app, but it will not automatically sync between different phones or browsers.</div>
+
+    <form class="onboarding-card" id="loginForm" novalidate>
+      <div class="login-brand"><span>FIT</span>DECK</div>
+      <div class="eyebrow">52 cards. One stronger you.</div>
+      <h2>Build your profile</h2>
+      <p>Enter your name to start your personalized workout deck. Your progress is saved automatically on this device.</p>
+
+      <div class="name-grid login-name-grid">
+        <div class="field login-field">
+          <label for="firstNameInput">First name</label>
+          <input id="firstNameInput" type="text" autocomplete="given-name" placeholder="Henry" required>
+        </div>
+        <div class="field login-field">
+          <label for="lastNameInput">Last name</label>
+          <input id="lastNameInput" type="text" autocomplete="family-name" placeholder="Long" required>
+        </div>
+      </div>
+      <div class="login-error" id="loginError" role="alert"></div>
+      <button class="start-btn" id="startAppBtn" type="submit">
+        <span>Enter FitDeck</span><b>→</b>
+      </button>
+      <div class="save-note"><span>●</span> Private local storage. No account or password required.</div>
+    </form>
   </div>
 </div>
 
@@ -897,7 +954,7 @@ function renderDeck(){
  <div class="playing-card ${red?"red":""}" id="activeCard"><div class="swipe-direction left" id="swipeLeftLabel">COMPLETE</div><div class="swipe-direction right" id="swipeRightLabel">COMPLETE</div>
  <div class="corner tl" style="color:${red?"#d9304f":"#07111f"}">${c.label}<small>${suit}</small></div>
  <div class="corner br" style="color:${red?"#d9304f":"#07111f"}">${c.label}<small>${suit}</small></div>
- <div class="card-rank-label">${c.label==="A"?"ACE · 11 REPS":["J","Q","K"].includes(c.label)?"FACE CARD · 10 REPS":"<span class="fitdeck-brand">FIT<span>DECK</span></span> COIN CARD"}</div>
+ <div class="card-rank-label">${c.label==="A"?"ACE · 11 REPS":["J","Q","K"].includes(c.label)?"FACE CARD · 10 REPS":"FITDECK COIN CARD"}</div>
  <div class="exercise-name">${selected?selected.name:`${pair[0].name} / ${pair[1].name}`}</div>
  <div class="coin-zone"><div class="coin" id="coin"><div class="coin-face coin-front">${svg(pair[0].key)}</div><div class="coin-face coin-back">${svg(pair[1].key)}</div></div></div>
  <div class="pair-labels"><div class="pair-option">${pair[0].name}</div><div class="pair-option">${pair[1].name}</div></div>
@@ -1216,36 +1273,50 @@ function draw(data){
 }
 function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1500)}
 $("activeDate").onchange=e=>{active=e.target.value||today();render()};
+
 $("shuffleBtn").onclick=()=>{
- const d=ensure();if(d.type==="rest")return toast("No deck on recovery days");
- const overlay=$("fitShuffleOverlay");overlay.classList.add("show");
+ const d=ensure();
+ if(d.type==="rest")return toast("No deck on recovery days");
+ const overlay=$("fitShuffleOverlay");
+ if(overlay)overlay.classList.add("show");
  setTimeout(()=>{
-   d.logs=[];d.flipResults={};makeDeck();overlay.classList.remove("show");
+   d.logs=[];d.flipResults={};makeDeck();
+   if(overlay)overlay.classList.remove("show");
    toast("Fresh 52-card deck");render()
  },1450)
 };
-$("clearWorkoutBtn").onclick=()=>{const d=ensure();d.logs=[];makeDeck(false);save();
+
+$("clearWorkoutBtn").onclick=()=>{
+ const d=ensure();d.logs=[];d.flipResults={};makeDeck(false);save();render();toast("Deck reset")
+};
+
 document.querySelectorAll(".body-tab").forEach(btn=>{
  btn.addEventListener("click",()=>{
    document.querySelectorAll(".body-tab").forEach(b=>b.classList.toggle("active",b===btn));
-   $("bodyFrontView").classList.toggle("active",btn.dataset.bodyView==="front");
-   $("bodyBackView").classList.toggle("active",btn.dataset.bodyView==="back")
+   const front=$("bodyFrontView"),back=$("bodyBackView");
+   if(front)front.classList.toggle("active",btn.dataset.bodyView==="front");
+   if(back)back.classList.toggle("active",btn.dataset.bodyView==="back")
  })
 });
 
-render();toast("Deck reset")};
-$("add169Btn").onclick=()=>{const d=ensure();d.water=Math.round(((d.water||0)+16.9)*10)/10;save();render()};
-$("minus169Btn").onclick=()=>{const d=ensure();d.water=Math.max(0,Math.round(((d.water||0)-16.9)*10)/10);save();render()};
-$("manualWaterBtn").onclick=()=>{const amount=Math.max(0,Number($("manualWaterInput").value)||0);if(!amount)return toast("Enter an amount");const d=ensure();d.water=Math.round(((d.water||0)+amount)*10)/10;$("manualWaterInput").value="";save();render()};
-$("resetWaterBtn").onclick=()=>{const d=ensure();d.water=0;save();render()};
-$("waterGoal").onchange=e=>{const d=ensure();d.goal=Math.max(24,Number(e.target.value)||96);db.settings.goal=d.goal;save();render()};
-$("logActivityBtn").onclick=()=>{const d=ensure(),distance=Math.max(0,Number($("activityDistance").value)||0),minutes=Math.max(0,Number($("activityMinutes").value)||0);d.steps=Math.max(0,Number(if(distance||minutes)d.activities.push({id:id(),type:$("activityType").value,distance,minutes});$("activityDistance").value="";$("activityMinutes").value="";save();toast("Activity saved");render()};
-
-$("startAppBtn").onclick=()=>{
- const first=$("firstNameInput").value.trim(),last=$("lastNameInput").value.trim();
- if(!first||!last)return toast("Enter your first and last name");
+function submitLogin(){
+ const first=$("firstNameInput").value.trim();
+ const last=$("lastNameInput").value.trim();
+ const error=$("loginError");
+ if(!first||!last){
+   if(error)error.textContent="Enter both your first and last name.";
+   (!first?$("firstNameInput"):$("lastNameInput")).focus();
+   return
+ }
+ if(error)error.textContent="";
  db.profile={first,last};save();renderProfile();toast(`Welcome, ${first}`)
-};
+}
+
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();submitLogin()});
+["firstNameInput","lastNameInput"].forEach(inputId=>{
+ $(inputId).addEventListener("input",()=>{const error=$("loginError");if(error)error.textContent=""})
+});
+
 $("profileBtn").onclick=()=>{
  $("editFirstName").value=db.profile.first||"";
  $("editLastName").value=db.profile.last||"";
@@ -1259,13 +1330,9 @@ $("saveProfileBtn").onclick=()=>{
  db.profile={first,last};save();$("profileSheet").classList.remove("show");renderProfile();toast("Profile updated")
 };
 
-toast("Apple Health requires the iPhone app version")};
 window.addEventListener("resize",renderProgress);
 document.querySelectorAll("[data-close-popup]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    const popup=$(btn.dataset.closePopup);
-    if(popup)popup.classList.remove("show")
-  })
+ btn.addEventListener("click",()=>{const popup=$(btn.dataset.closePopup);if(popup)popup.classList.remove("show")})
 });
 
 render();
