@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#050914">
-<title><span class="fitdeck-brand">FIT<span>DECK</span></span> Pro</title>
+<title>FitDeck Pro</title>
 <style>
 :root{
   --bg:#040812;
@@ -499,6 +499,30 @@ canvas{display:block;width:100%;height:270px}
 @media(max-width:780px){.login-shell{grid-template-columns:1fr;min-height:auto}.login-visual{display:none}.onboarding-card{padding:42px 25px;min-height:560px}.login-brand{font-size:47px}.onboarding h2{font-size:37px}}
 @media(max-width:460px){.onboarding{padding:10px}.login-shell{border-radius:27px}.login-name-grid{grid-template-columns:1fr}.onboarding-card{padding:35px 20px}.onboarding h2{font-size:34px}}
 
+
+main{padding-top:18px}
+.deck-hero-heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin:10px 0 18px;padding:0 4px}
+.deck-kicker{font-size:9px;letter-spacing:.18em;font-weight:1000;color:#65e9ff}
+.deck-hero-heading h1{font-size:clamp(38px,7vw,72px);line-height:.9;letter-spacing:-.065em;margin:8px 0 10px;background:linear-gradient(100deg,#fff,#70eaff 48%,#a788ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.deck-hero-heading p{max-width:680px;margin:0;color:var(--muted);font-size:11px;line-height:1.6}
+.goal-chip{flex:0 0 auto;min-width:118px;padding:14px 17px;border-radius:20px;border:1px solid rgba(99,233,255,.22);background:radial-gradient(circle at top,rgba(71,241,255,.13),transparent 68%),rgba(255,255,255,.025);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.goal-chip strong{font-size:30px;display:block}.goal-chip span{font-size:8px;letter-spacing:.12em;color:var(--muted)}
+.heatmap-panel{overflow:hidden;background:radial-gradient(circle at 50% 30%,rgba(90,92,255,.09),transparent 38%),linear-gradient(160deg,rgba(12,19,32,.98),rgba(5,9,17,.98))}
+.body-view{position:relative;border-radius:24px;background:radial-gradient(ellipse at center,rgba(92,219,255,.055),transparent 65%);border:1px solid rgba(255,255,255,.055)}
+.body-map-pro{filter:drop-shadow(0 28px 35px rgba(0,0,0,.45))}
+.body-silhouette{fill:url(#bodyBaseFront);stroke:rgba(180,217,255,.22);stroke-width:1.5}
+.heat-zone-pro{stroke:rgba(219,239,255,.19);stroke-width:1.15;mix-blend-mode:screen}
+.heat-zone-pro[data-level="0"]{fill:rgba(91,119,151,.08)}
+.heat-zone-pro[data-level="1"]{fill:#1d8da7;opacity:.58}
+.heat-zone-pro[data-level="2"]{fill:#16cae3;opacity:.78;filter:drop-shadow(0 0 8px rgba(22,202,227,.42))}
+.heat-zone-pro[data-level="3"]{fill:#8a67ff;opacity:.9;filter:drop-shadow(0 0 11px rgba(138,103,255,.62))}
+.heat-zone-pro[data-level="4"]{fill:#ff416d;opacity:1;filter:drop-shadow(0 0 15px rgba(255,65,109,.82))}
+.body-map-caption{position:absolute;left:14px;bottom:12px;font-size:8px;letter-spacing:.12em;color:rgba(255,255,255,.42);font-weight:900}
+.muscle-rank-list{display:grid;gap:7px;margin-top:12px}
+.muscle-rank-row{display:grid;grid-template-columns:90px 1fr 36px;gap:8px;align-items:center;font-size:9px}
+.muscle-rank-row span{color:#b9c5d8}.muscle-rank-track{height:6px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}.muscle-rank-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,#31dff1,#8e69ff,#ff4c72)}.muscle-rank-row b{text-align:right;font-size:9px}
+@media(max-width:700px){.deck-hero-heading{align-items:flex-start}.goal-chip{min-width:100px}.deck-hero-heading h1{font-size:48px}}
+
 </style>
 </head>
 <body>
@@ -540,32 +564,8 @@ canvas{display:block;width:100%;height:270px}
 </header>
 
 <main>
-<section class="hero" id="dashboard">
-  <article class="panel hero-copy">
-    <div class="eyebrow">Daily performance system</div>
-    <h2 id="heroTitle">FLIP. TRAIN. EVOLVE.</h2>
-    <p id="heroText">Eight exercises. Four suits. One randomized coin flip decides every card.</p>
-    <div class="day-pill"><span class="dot" id="dayDot"></span><span id="dayPill">Upper Body Day</span></div>
-  </article>
-  <article class="panel score-card">
-    <div class="score-orbit" id="scoreOrbit">
-      <div class="score-center">
-        <strong id="fitScore">0</strong>
-        <span>FIT OVR · 0–99</span>
-        <em id="scoreEquivalent">Daily performance rating</em>
-      </div>
-    </div>
-    <div class="metric-pills metric-pills-four">
-      <div class="metric"><b id="workoutMetric">0</b><span>Workout</span></div>
-      <div class="metric"><b id="waterMetric">0</b><span>Water</span></div>
-      <div class="metric"><b id="activityMetric">0</b><span>Steps</span></div>
-      <div class="metric bonus-metric"><b id="bonusMetric">+0</b><span>Cardio Bonus</span></div>
-    </div>
-  </article>
-</section>
-
 <section class="section" id="workout">
-  <div class="section-title"><div><h3>Workout Deck</h3><p>Swipe left or right to complete the top card.</p></div></div>
+  <div class="deck-hero-heading"><div><span class="deck-kicker">TODAY'S WORKOUT</span><h1>Your Deck</h1><p>Flip the coin, complete the reps, and swipe. The daily goal is 52 cards, but you can keep going for as many rounds as you want.</p></div><div class="goal-chip"><strong id="goalProgressTop">0</strong><span>/ 52 GOAL</span></div></div>
   <div class="grid2">
     <article class="panel pad">
       <div class="toolbar">
@@ -583,8 +583,8 @@ canvas{display:block;width:100%;height:270px}
       <div class="stats">
         <div class="stat"><span>Cards</span><b id="cardsDone">0</b></div>
         <div class="stat"><span>Reps</span><b id="totalReps">0</b></div>
-        <div class="stat"><span>Deck</span><b id="deckPercent">0%</b></div>
-        <div class="stat"><span>Remaining</span><b id="remainingCards">52</b></div>
+        <div class="stat"><span>Goal</span><b id="deckPercent">0%</b></div>
+        <div class="stat"><span>Next Goal</span><b id="remainingCards">52</b></div>
       </div>
       <div class="log-list" id="workoutLog"></div>
     </article>
@@ -680,7 +680,7 @@ canvas{display:block;width:100%;height:270px}
               <ellipse cx="154" cy="451" rx="14" ry="42"/>
               <ellipse cx="206" cy="451" rx="14" ry="42"/>
             </g>
-          </svg>
+          </svg><span class="body-map-caption">FRONT MUSCLE LOAD</span>
         </div>
 
         <div class="body-view" id="bodyBackView">
@@ -717,7 +717,7 @@ canvas{display:block;width:100%;height:270px}
               <ellipse cx="154" cy="451" rx="14" ry="42"/>
               <ellipse cx="206" cy="451" rx="14" ry="42"/>
             </g>
-          </svg>
+          </svg><span class="body-map-caption">BACK MUSCLE LOAD</span>
         </div>
 
         <div class="heat-summary-pro">
@@ -733,7 +733,7 @@ canvas{display:block;width:100%;height:270px}
             <span>Total reps</span>
             <strong id="heatTotalReps">0</strong>
           </div>
-        </div>
+        </div><div class="muscle-rank-list" id="muscleRankList"></div>
       </div>
 
     </article>
@@ -891,20 +891,20 @@ const $=id=>document.getElementById(id);
 $("activeDate").value=active;
 
 function today(){const d=new Date(),o=d.getTimezoneOffset();return new Date(d-o*60000).toISOString().slice(0,10)}
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},settings:{goal:96},profile:{first:"",last:""}}}catch{return{days:{},settings:{goal:96},profile:{first:"",last:""}}}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},settings:{goal:52},profile:{first:"",last:""}}}catch{return{days:{},settings:{goal:52},profile:{first:"",last:""}}}}
 function save(){localStorage.setItem(KEY,JSON.stringify(db))}
 function type(date){const n=new Date(date+"T12:00:00").getDay();return n===0||n===6?"rest":[1,3,5].includes(n)?"upper":"lower"}
 function set(){return type(active)==="lower"?lower:upper}
 function id(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}
 function ensure(){
- if(!db.days[active])db.days[active]={type:type(active),deck:[],pointer:0,logs:[],water:0,goal:db.settings.goal||96,steps:0,activities:[],flipResults:{}};
+ if(!db.days[active])db.days[active]={type:type(active),deck:[],pointer:0,logs:[],water:0,goal:db.settings.goal||52,steps:0,activities:[],flipResults:{}};
  const d=db.days[active];d.type=type(active);d.logs=d.logs||[];d.activities=d.activities||[];d.deck=d.deck||[];d.flipResults=d.flipResults||{};
  if(!d.deck.length&&d.type!=="rest")makeDeck(false);
  return d
 }
 function makeDeck(doSave=true){
- const d=db.days[active]||(db.days[active]={type:type(active),logs:[],water:0,goal:96,steps:0,activities:[]});
+ const d=db.days[active]||(db.days[active]={type:type(active),logs:[],water:0,goal:52,steps:0,activities:[]});
  d.deck=[];
  if(d.type!=="rest")set().forEach((ex,exIndex)=>ranks.forEach(r=>d.deck.push({id:id(),exIndex,label:r.label,value:r.value})));
  shuffle(d.deck);d.pointer=0;if(doSave)save()
@@ -937,19 +937,20 @@ function renderProfile(){
 function render(){
  renderProfile();
  const d=ensure(),t=d.type;
- $("dayPill").textContent=t==="upper"?"Upper Body Day":t==="lower"?"Lower Body Day":"Recovery Day";
- $("heroTitle").textContent=t==="rest"?"Recover. Reset. Return.":t==="upper"?"Upper Body Day":"Lower Body Strength Day";
- $("heroText").textContent=t==="rest"?"Saturday and Sunday are recovery days. They are stored but excluded from scoring.":t==="upper"?"Shoulder presses, incline pushups, hammer curls and tricep dips. Runs and bike rides can add bonus points.":"Squats, lunges, goblet split squats and side lunges. Swipe each card to log it.";
- $("dayDot").style.background=t==="rest"?"#a375ff":"#4df0a9";
+
  renderDeck();renderLegend();renderLogs();renderAnalytics();renderSummaryPopups();renderProgress()
 }
 function renderDeck(){
  const d=ensure(),host=$("deckStage");
  if(d.type==="rest"){host.innerHTML='<div class="empty" style="width:100%;min-height:420px"><div><div style="font-size:46px">☾</div><br><b style="color:white;font-size:16px">Recovery day</b><br><br>No workout deck assigned.</div></div>';$("deckStatus").textContent="Rest day";return}
- if(d.pointer>=d.deck.length){host.innerHTML='<div class="empty" style="width:100%;min-height:420px"><div><div style="font-size:46px">✓</div><br><b style="color:white;font-size:16px">Deck complete</b><br><br>All 52 cards logged.</div></div>';$("deckStatus").textContent="52 of 52 complete";return}
+ if(d.pointer>=d.deck.length){
+   d.deck=[];set().forEach((ex,exIndex)=>ranks.forEach(r=>d.deck.push({id:id(),exIndex,label:r.label,value:r.value})));
+   shuffle(d.deck);d.pointer=0;d.flipResults={};save();
+   toast("52-card goal complete — bonus round dealt");
+ }
  const c=d.deck[d.pointer],suit=set()[c.exIndex].suit,pair=suitPairs[suit],pick=d.flipResults[c.id];
  const selected=(pick===0||pick===1)?pair[pick]:null,red=["♥","♦"].includes(suit);
- $("deckStatus").textContent=`${d.pointer} complete · ${52-d.pointer} remaining`;
+ $("deckStatus").textContent=`${d.logs.length} total · round ${Math.floor(d.logs.length/52)+1}`;
  host.innerHTML=`<div class="deck-shadow"></div><div class="deck-shadow2"></div>
  <div class="playing-card ${red?"red":""}" id="activeCard"><div class="swipe-direction left" id="swipeLeftLabel">COMPLETE</div><div class="swipe-direction right" id="swipeRightLabel">COMPLETE</div>
  <div class="corner tl" style="color:${red?"#d9304f":"#07111f"}">${c.label}<small>${suit}</small></div>
@@ -1027,7 +1028,7 @@ function renderLegend(){
 }
 function renderLogs(){
  const d=ensure(),logs=d.logs||[];$("cardsDone").textContent=logs.length;$("totalReps").textContent=logs.reduce((s,x)=>s+x.reps,0);
- $("deckPercent").textContent=Math.round(logs.length/52*100)+"%";$("remainingCards").textContent=Math.max(0,52-logs.length);
+ const goalProgress=logs.length%52; const completedGoal=logs.length>=52; $("deckPercent").textContent=Math.min(100,Math.round(logs.length/52*100))+"%";$("remainingCards").textContent=completedGoal&&goalProgress===0?52:52-goalProgress; if($("goalProgressTop"))$("goalProgressTop").textContent=Math.min(52,logs.length);
  $("workoutLog").innerHTML=logs.length?logs.slice().reverse().map(x=>`<div class="log-row"><div><b>${x.suit} ${x.exercise}</b><span>${x.label} card · ${x.reps} reps</span></div><button data-rm="${x.id}">×</button></div>`).join(""):'<div class="empty">Swipe your first card to begin.</div>';
  document.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{d.logs=d.logs.filter(x=>x.id!==b.dataset.rm);d.pointer=Math.max(0,d.pointer-1);save();render()})
 }
@@ -1061,7 +1062,7 @@ function getMuscleScoresForLogs(logs){
 
 function getDayDataByDate(date){
   const key=dateKey(date);
-  return state.days&&state.days[key]?state.days[key]:null
+  return db.days&&db.days[key]?db.days[key]:null
 }
 
 function renderSummaryPopups(){
@@ -1155,15 +1156,20 @@ function renderAnalytics(){
 
  const ranked=Object.entries(muscleScores).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
  $("mostWorkedMuscle").textContent=ranked.length?ranked[0][0]:"No activity";
- $("activeMuscleCount").textContent=ranked.length
+ $("activeMuscleCount").textContent=ranked.length;
+ const rankHost=$("muscleRankList");
+ if(rankHost){
+   const top=ranked[0]?.[1]||1;
+   rankHost.innerHTML=ranked.length?ranked.slice(0,6).map(([name,value])=>`<div class="muscle-rank-row"><span>${name}</span><div class="muscle-rank-track"><div class="muscle-rank-fill" style="width:${Math.max(7,value/top*100)}%"></div></div><b>${Math.round(value)}</b></div>`).join(""):'<div class="empty">Complete cards to build your muscle-load ranking.</div>';
+ }
 }
 
-function renderWater(){
+function __obsolete_renderWater(){
  const d=ensure(),goal=d.goal||96,p=Math.min(100,(d.water||0)/goal*100);
  $("waterOz").textContent=d.water||0;$("waterGoal").value=goal;$("waterFill").style.height=p+"%";$("waterGoalText").textContent=Math.round(p)+"% of "+goal+" oz goal";
  $("hydrationScore").textContent=Math.round(p);$("waterRemaining").textContent=Math.max(0,goal-(d.water||0))+" oz"
 }
-function renderActivity(){
+function __obsolete_renderActivity(){
  const d=ensure(),a=d.activities||[];
  const runMiles=a.filter(x=>x.type==="Run").reduce((s,x)=>s+x.distance,0);
  const bikeMiles=a.filter(x=>x.type==="Bike").reduce((s,x)=>s+x.distance,0);
@@ -1202,7 +1208,7 @@ function calc(d){
  const core=workout*.50+water*.25+steps*.25;
  return{fit:Math.min(99,Math.round(core*.90+bonus)),workout:Math.round(workout),water:Math.round(water),activity:Math.round(steps),bonus:Math.round(bonus)}
 }
-function renderScore(){
+function __obsolete_renderScore(){
  const s=calc(ensure());
  if(s.fit===null){$("fitScore").textContent="—";$("scoreEquivalent").textContent="Recovery day · excluded";$("scoreOrbit").style.setProperty("--score",0)}
  else{$("fitScore").textContent=s.fit;$("scoreEquivalent").textContent=s.fit>=90?"ELITE":s.fit>=80?"EXCELLENT":s.fit>=70?"STRONG":s.fit>=60?"BUILDING":"STARTING";$("scoreOrbit").style.setProperty("--score",s.fit)}
@@ -1213,7 +1219,7 @@ function renderProgress(){
  for(let i=13;i>=0;i--){
    const dt=new Date();dt.setHours(0,0,0,0);dt.setDate(dt.getDate()-i);
    const key=dateKey(dt);
-   const day=state.days[key]||{};
+   const day=db.days[key]||{};
    const cards=(day.logs||[]).length;
    days.push({date:dt,key,cards,label:dt.toLocaleDateString(undefined,{weekday:"short"}),short:dt.toLocaleDateString(undefined,{month:"short",day:"numeric"})})
  }
@@ -1257,7 +1263,7 @@ function renderProgress(){
           <text class="chart-axis-label" x="${p.l-10}" y="${gy+4}" text-anchor="end">${val}</text>`
  }
  const labels=pts.map((pt,i)=>i%2===0||i===pts.length-1?`<text class="chart-axis-label" x="${pt.x}" y="${H-14}" text-anchor="middle">${pt.label}</text>`:"").join("");
- const points=pts.map((pt,i)=>`<circle class="chart-point ${i===pts.length-1?"today":""}" cx="${pt.x}" cy="${pt.y}" r="${i===pts.length-1?6:4}"><title>${pt.short}: ${pt.cards} cards</title></circle>`).join("");
+ const points=pts.map((pt,i)=>`<circle class="chart-point ${i===pts.length-1?"today":""}" cx="${pt.x}" cy="${pt.y}" r="${i===pts.length-1?6:4}"><title>FitDeck Pro</title></circle>`).join("");
 
  svg.innerHTML=`<defs><linearGradient id="cardsAreaGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#62e8ff" stop-opacity=".28"/><stop offset="100%" stop-color="#62e8ff" stop-opacity="0"/></linearGradient></defs>${grid}<path class="chart-area" d="${area}"/><path class="chart-line" d="${path}"/>${points}${labels}`;
 }
@@ -1280,9 +1286,9 @@ $("shuffleBtn").onclick=()=>{
  const overlay=$("fitShuffleOverlay");
  if(overlay)overlay.classList.add("show");
  setTimeout(()=>{
-   d.logs=[];d.flipResults={};makeDeck();
+   d.flipResults={};makeDeck();
    if(overlay)overlay.classList.remove("show");
-   toast("Fresh 52-card deck");render()
+   toast("Fresh 52-card round dealt");render()
  },1450)
 };
 
